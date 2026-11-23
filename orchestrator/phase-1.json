@@ -13,7 +13,7 @@
   },
   "tasks": [
     {
-      "id": "HG-007-workspace-check",
+      "id": "hg-007-workspace-check",
       "phase": 1,
       "dependsOn": [],
       "paths": [
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "id": "HG-008-cli-diagnostics",
+      "id": "hg-008-cli-diagnostics",
       "phase": 1,
       "dependsOn": [],
       "paths": [
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "id": "HG-009-ci-smoke",
+      "id": "hg-009-ci-smoke",
       "phase": 1,
       "dependsOn": [],
       "paths": [
@@ -74,7 +74,7 @@
       ]
     },
     {
-      "id": "HG-010-review-evidence",
+      "id": "hg-010-review-evidence",
       "phase": 1,
       "dependsOn": [],
       "paths": [
