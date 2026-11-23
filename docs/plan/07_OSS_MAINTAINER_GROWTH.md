@@ -3,7 +3,7 @@
 ## Launching a legitimate OSS project
 
 1. Confirm copyright ownership and no employer/client NDA/contract conflicts. Build original code from scratch.
-2. Add **OSI-approved license** (MIT proposed), notice, and any dependency attribution.
+2. Maintain the existing [MIT license](../../LICENSE), notice, and any dependency attribution.
 3. Ship clean, complete README: problem, user story, quickstart, tests, limitations and support policy.
 4. `CONTRIBUTING.md`, CODE_OF_CONDUCT, SECURITY.md, issue/PR templates and a public roadmap.
 5. Set CI with test/lint/typecheck/security checks and minimal token permissions. Public releases should be semver tagged.
