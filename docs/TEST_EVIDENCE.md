@@ -7,3 +7,4 @@
 | Phase 2 contracts on Windows Node.js 22 | `pnpm test` passed 182 tests in 13 files. `pnpm typecheck`, `pnpm build`, `pnpm lint`, `pnpm format:check`, frozen offline install, documentation links, and compiled CLI validation passed. |
 | Phase 3 worker checks | The 26 transport tests, 63-test engine worker suite, and three Express consumer tests passed in isolated worktrees. The Express startup smoke observed 3 credits in buggy mode and 1 in fixed mode. |
 | Phase 3 combined product checks on Windows Node.js 22 | The focused run passed 207 tests in 11 files. Typecheck and the four package builds passed. The compiled CLI exited 1 against the buggy consumer with three credits, then exited 0 against the fixed consumer with one credit. |
+| Phase 3 full rerun | All 268 tests passed on Windows after bounding test parallelism and extending the subprocess test timeout. |

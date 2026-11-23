@@ -187,14 +187,19 @@
       "phase": 2,
       "owner": "A",
       "dependencies": ["HG-007", "HG-008"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["e51266c"],
-      "completedAt": null
+      "evidence": [
+        "e51266c",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-012",
@@ -202,14 +207,19 @@
       "phase": 2,
       "owner": "A",
       "dependencies": ["HG-011"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["e51266c"],
-      "completedAt": null
+      "evidence": [
+        "e51266c",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-013",
@@ -217,14 +227,19 @@
       "phase": 2,
       "owner": "A",
       "dependencies": ["HG-011"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["e51266c"],
-      "completedAt": null
+      "evidence": [
+        "e51266c",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-014",
@@ -232,14 +247,19 @@
       "phase": 2,
       "owner": "A",
       "dependencies": ["HG-013"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["dc7bbd5"],
-      "completedAt": null
+      "evidence": [
+        "dc7bbd5",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-015",
@@ -247,14 +267,19 @@
       "phase": 2,
       "owner": "C",
       "dependencies": ["HG-011"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["e4415fd"],
-      "completedAt": null
+      "evidence": [
+        "e4415fd",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-016",
@@ -262,14 +287,19 @@
       "phase": 2,
       "owner": "B",
       "dependencies": ["HG-007"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["9bfa62d"],
-      "completedAt": null
+      "evidence": [
+        "9bfa62d",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-017",
@@ -277,14 +307,19 @@
       "phase": 2,
       "owner": "E",
       "dependencies": ["HG-014"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["dc7bbd5"],
-      "completedAt": null
+      "evidence": [
+        "dc7bbd5",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-018",
@@ -292,14 +327,19 @@
       "phase": 2,
       "owner": "E",
       "dependencies": ["HG-011", "HG-015"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["dc7bbd5"],
-      "completedAt": null
+      "evidence": [
+        "dc7bbd5",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-019",
@@ -307,14 +347,19 @@
       "phase": 2,
       "owner": "D",
       "dependencies": ["HG-011", "HG-012", "HG-013"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["e51266c"],
-      "completedAt": null
+      "evidence": [
+        "e51266c",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-020",
@@ -322,14 +367,19 @@
       "phase": 2,
       "owner": "E",
       "dependencies": ["HG-014", "HG-017", "HG-018"],
-      "branch": "phase-2/contracts",
-      "pr": null,
-      "status": "review",
+      "branch": "phase-2/scenario-contracts",
+      "pr": 3,
+      "status": "completed",
       "tests": [
-        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed",
+        "GitHub Actions Node.js 22, 24, and 26 and documentation passed"
       ],
-      "evidence": ["dc7bbd5"],
-      "completedAt": null
+      "evidence": [
+        "dc7bbd5",
+        "6b21389292fa115f95f4517d1f0623535b504d7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45168051102"
+      ],
+      "completedAt": "2026-11-23T17:19:14+05:30"
     },
     {
       "id": "HG-021",
@@ -337,11 +387,12 @@
       "phase": 3,
       "owner": "C",
       "dependencies": ["HG-011"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": ["f2aa61c"],
       "completedAt": null
@@ -352,11 +403,12 @@
       "phase": 3,
       "owner": "C",
       "dependencies": ["HG-021"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": ["f2aa61c"],
       "completedAt": null
@@ -367,11 +419,12 @@
       "phase": 3,
       "owner": "C",
       "dependencies": ["HG-022"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": ["f2aa61c"],
       "completedAt": null
@@ -382,11 +435,12 @@
       "phase": 3,
       "owner": "B",
       "dependencies": ["HG-016", "HG-018"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": ["6553366"],
       "completedAt": null
@@ -397,11 +451,12 @@
       "phase": 3,
       "owner": "B",
       "dependencies": ["HG-016", "HG-024"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": ["6553366"],
       "completedAt": null
@@ -412,11 +467,12 @@
       "phase": 3,
       "owner": "B",
       "dependencies": ["HG-022", "HG-023"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": ["6553366"],
       "completedAt": null
@@ -427,11 +483,12 @@
       "phase": 3,
       "owner": "B",
       "dependencies": ["HG-012", "HG-024", "HG-025", "HG-026"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": [
         "packages/engine/test/run.test.ts",
@@ -445,11 +502,12 @@
       "phase": 3,
       "owner": "B",
       "dependencies": ["HG-027"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": [
         "packages/engine/test/run.test.ts",
@@ -463,11 +521,12 @@
       "phase": 3,
       "owner": "C",
       "dependencies": ["HG-021", "HG-022", "HG-023", "HG-028"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": [
         "packages/engine/test/run.test.ts",
@@ -481,11 +540,12 @@
       "phase": 3,
       "owner": "E",
       "dependencies": ["HG-018", "HG-024"],
-      "branch": "phase-3/runner",
+      "branch": "phase-3/http-runner",
       "pr": null,
       "status": "review",
       "tests": [
-        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
+        "Full local suite passed 268 tests"
       ],
       "evidence": ["785aa47"],
       "completedAt": null
