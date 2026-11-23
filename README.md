@@ -36,7 +36,7 @@ Please read [Contributing](CONTRIBUTING.md) and [Security](SECURITY.md) before c
 
 ## Separate contributor program plan
 
-The project owner is also pursuing legitimate contributions to **other** open-source projects. The [contribution plan](docs/plan/05_EXTERNAL_100_PR_OPPORTUNITIES.md) contains **research topics only**, not confirmed defects or promised PRs. Contributions to this owner-controlled repository do not count as external PRs for Anthropic's 100-merged-PR route. No qualification or approval is guaranteed.
+The project owner is also pursuing legitimate contributions to **other** open-source projects. Our separate external contribution plan contains **research topics only**, not confirmed defects or promised PRs. Private applicant planning documents are intentionally not published in this product repository. Contributions to this owner-controlled repository do not count as external PRs for Anthropic's 100-merged-PR route. No qualification or approval is guaranteed.
 
 ## License
 
