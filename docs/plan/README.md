@@ -8,10 +8,12 @@ This folder contains product-facing documentation shared with contributors.
 | [03 — Architecture](03_ARCHITECTURE_HLD_LLD.md) | HLD, LLD, data shapes and interfaces |
 | [04 — Backlog](04_PROJECT_DELIVERY_BACKLOG.md) | 60 engineering tasks; not completed |
 | [07 — Maintainer growth](07_OSS_MAINTAINER_GROWTH.md) | Community process and adoption goals |
+| [09 — Codex product execution](09_CODEX_PRODUCT_EXECUTION.md) | Public build instructions and human-selected models |
 | [11 — Week one](11_WEEK_ONE.md) | Initial kickoff |
 | [12 — Model routing](12_MODEL_ROUTING_AND_TASK_MATRIX.md) | Recommended models per task |
+| [13 — Repository bootstrap](13_GITHUB_REPO_BOOTSTRAP.md) | Current branch and first technical milestones |
 | [14 — Execution gates](14_EXECUTION_PHASES_AND_GATES.md) | Sequencing and verification |
 
 **Status:** Documents are plans, not evidence of implemented features or upstream contributions.
 
-The private sponsorship qualification, budget and application workbooks are intentionally kept outside the public repository. Some internal documents may refer to private-plan files not published here.
+The private sponsorship qualification, budget and application workbooks are intentionally kept outside the public repository. Private sponsorship planning and financial information are not part of this public product repository.
