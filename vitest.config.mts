@@ -5,7 +5,7 @@ export default defineConfig({
     environment: 'node',
     coverage: {
       provider: 'v8',
-      include: ['packages/*/src/**/*.ts'],
+      include: ['packages/*/src/**/*.ts', 'scripts/orchestrator/*.mjs'],
       reporter: ['text', 'lcov'],
     },
   },

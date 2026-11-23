@@ -31,7 +31,8 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm build
       - run: node packages/cli/dist/index.js --help
-      - run: pnpm test:coverage
+      - name: Run tests and offline orchestrator checks
+        run: pnpm test:coverage
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: coverage-node-${{ matrix.node }}
