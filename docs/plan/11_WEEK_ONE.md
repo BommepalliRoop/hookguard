@@ -4,11 +4,10 @@
 
 ## Day 1 — scope, safety, scaffold (Sol for code; Astra for IP/security review)
 
-- [ ] Read official program and this pack, understand risks and no guaranteed result.
-- [ ] Decide whether to stop Claude Pro renewal due to credit-card pressure (user controls billing).
+- [ ] Read the public project BRD, architecture and engineering backlog; distinguish planned features from completed features.
 - [ ] Confirm legal right to publish original independent code.
 - [ ] Use existing public project name `HookGuard` and verify npm/package namespace availability (do not create a second repo).
-- [ ] Create *local-only* TypeScript workspace for the empty `BommepalliRoop/hookguard` repo, strict TS, pnpm scripts and Vitest.
+- [ ] Create *local-only* TypeScript workspace for the existing `BommepalliRoop/hookguard` repo, strict TS, pnpm scripts and Vitest.
 - [ ] Draft MIT license and OSS community docs; publish only after owner confirms.
 
 ## Day 2 — define test contract (Astra for schema; Sol for tests)
@@ -35,7 +34,7 @@
 - [ ] Add lint/typecheck/unit/e2e workflow; run it locally first.
 - [ ] Write a quickstart that a stranger can follow without cloud services.
 
-## Day 6 — first external contribution, separate from own repo (Astra discovery; Sol implementation)
+## Day 6 — optional upstream code study (separate from HookGuard; not a project delivery gate)
 
 - [ ] Inspect [ant-design/x issue #2075](https://github.com/ant-design/x/issues/2075); check issue open, duplicates, other PRs, project guidelines and license.
 - [ ] Reproduce the icon-spacing issue on current branch.
@@ -46,7 +45,7 @@
 
 - [ ] Re-run all tests, manually inspect diff, update changelog.
 - [ ] Record verified facts, blockers and actual time/spend.
-- [ ] Get explicit approval before first push to the existing public HookGuard repository; nothing gets published automatically.
+- [ ] Get explicit approval before publishing production releases, new packages or third-party PRs.
 - [ ] Replan next week's work based on true project status and any external maintainers' feedback.
 
 ## 'Done' looks like
