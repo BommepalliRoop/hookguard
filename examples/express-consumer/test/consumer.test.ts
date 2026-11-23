@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+import { signingHeaders } from '@hookguard/engine';
 import { expect, test, type TestContext } from 'vitest';
 import { createExpressConsumer } from '../src/index.js';
 
@@ -7,6 +8,35 @@ const payment = {
   type: 'payment.captured',
   data: { orderId: 'order_123', amountCents: 1200, currency: 'USD' },
 };
+
+test.each(['', '  ', 'x'.repeat(4097)])(
+  'rejects an invalid configured signing secret',
+  (signingSecret) => {
+    expect(() =>
+      createExpressConsumer({ mode: 'fixed', signingSecret }),
+    ).toThrow(RangeError);
+  },
+);
+
+test('requires UTF-8 for a signed payment before it can impact state', async ({
+  onTestFinished,
+}) => {
+  const signingSecret = 'synthetic-demo-only';
+  const base = await serve(onTestFinished, { mode: 'fixed', signingSecret });
+  const body = JSON.stringify(payment);
+  const response = await fetch(new URL('/webhook', base), {
+    method: 'POST',
+    body,
+    headers: {
+      'content-type': 'application/json; charset=utf-7',
+      ...signingHeaders(Buffer.from(body), signingSecret),
+    },
+  });
+  expect(response.status).toBe(400);
+  expect(await (await fetch(new URL('/_test/state', base))).json()).toEqual({
+    orders: {},
+  });
+});
 
 async function serve(
   onTestFinished: TestContext['onTestFinished'],

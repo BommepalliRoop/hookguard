@@ -10,6 +10,7 @@ import {
 } from './delivery-plan.js';
 import { createPrng } from './primitives.js';
 import { retryDelayMs } from './retry.js';
+import { signingHeaders } from './signature.js';
 import {
   createTargetPolicy,
   sendRequest,
@@ -23,6 +24,23 @@ const { version } = createRequire(import.meta.url)('../package.json') as {
 };
 type Attempt = RunResultV1['attempts'][number];
 type AssertionResult = RunResultV1['assertions'][number];
+const sensitivePath =
+  /(?:authorization|credential|password|secret|token|(?:api|private)[_-]?key|cookie|signature)/iu;
+
+function redactStateValue(
+  path: string,
+  redactions: readonly string[],
+): boolean {
+  return (
+    sensitivePath.test(path) ||
+    redactions.some(
+      (selector) =>
+        path === selector ||
+        path.startsWith(selector + '.') ||
+        path.startsWith(selector + '['),
+    )
+  );
+}
 
 function canonical(value: unknown): string {
   if (Array.isArray(value)) return '[' + value.map(canonical).join(',') + ']';
@@ -113,7 +131,7 @@ async function evaluateAssertions(
         typeof actual === 'number' &&
         Number.isFinite(actual) &&
         typeof assertion.equals === 'number' &&
-        scenario.security.redactPaths.length === 0;
+        !redactStateValue(assertion.jsonPath, scenario.security.redactPaths);
       results.push({
         kind: assertion.kind,
         passed,
@@ -132,15 +150,26 @@ export async function runScenario(
   scenario: ScenarioV1,
   fixture: Buffer,
   target: string,
+  options: { signingSecret?: string } = {},
 ): Promise<RunResultV1> {
   const policy = createTargetPolicy(scenario.security.allowTargets);
   const destination = policy.resolve(target).href;
   for (const assertion of scenario.assertions) {
     if (assertion.kind === 'state_json') policy.resolve(assertion.url);
   }
-  if (scenario.scenario === 'bad_signature') {
+  const signature = scenario.security.signature;
+  const signingSecret = options.signingSecret;
+  if (scenario.scenario === 'bad_signature' && !signature) {
     throw new DeliveryPlanError(
-      'Signature scenarios require signature verification support.',
+      'Signature scenarios require security.signature configuration.',
+    );
+  }
+  if (
+    signature &&
+    (!signingSecret?.trim() || Buffer.byteLength(signingSecret) > 4096)
+  ) {
+    throw new DeliveryPlanError(
+      'The configured synthetic signing secret is missing or invalid.',
     );
   }
 
@@ -172,10 +201,24 @@ export async function runScenario(
         }
       } else {
         try {
+          const headers: Record<string, string> = {
+            'content-type': 'application/json',
+          };
+          if (signature && signingSecret) {
+            Object.assign(
+              headers,
+              signingHeaders(event, signingSecret, {
+                mode:
+                  signature.mode ??
+                  (scenario.scenario === 'bad_signature' ? 'invalid' : 'valid'),
+                toleranceSeconds: signature.toleranceSeconds ?? 300,
+              }),
+            );
+          }
           const response = await sendRequest(policy, destination, {
             method: 'POST',
             timeoutMs: scenario.execution.timeoutMs,
-            headers: { 'content-type': 'application/json' },
+            headers,
             body: event,
           });
           denyRedirect(response.status);

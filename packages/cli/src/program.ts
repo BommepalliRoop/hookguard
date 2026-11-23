@@ -1,4 +1,6 @@
+import { writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
+import { basename } from 'node:path';
 import {
   DeliveryPlanError,
   runScenario,
@@ -9,8 +11,19 @@ import {
   FixtureError,
   loadScenario,
   readFixture,
+  runResultSchema,
 } from '@hookguard/schema';
-import { Command, CommanderError, type OutputConfiguration } from 'commander';
+import {
+  Command,
+  CommanderError,
+  Option,
+  type OutputConfiguration,
+} from 'commander';
+import {
+  redactRunResult,
+  renderJsonReport,
+  renderJunitReport,
+} from './report.js';
 
 const require = createRequire(import.meta.url);
 const { version } = require('../package.json') as { version: string };
@@ -75,18 +88,101 @@ export async function runCli(
     )
     .option('-c, --config <file>', 'Scenario YAML file', 'hookguard.yaml')
     .requiredOption('--target <url>', 'Webhook endpoint URL')
-    .action(async ({ config, target }: { config: string; target: string }) => {
-      const scenario = await loadScenario(config);
-      const fixture = await readFixture(config, scenario.fixture.path);
-      const result = await runScenario(scenario, fixture, target);
-      writeOut(
-        `${result.passed ? 'PASS' : 'FAIL'} · ${result.attempts.length} delivery attempts\n`,
-      );
-      for (const { kind, passed, detail } of result.assertions) {
-        writeOut(`${passed ? 'PASS' : 'FAIL'} ${kind} · ${detail}\n`);
-      }
-      outcome = result.passed ? 0 : 1;
-    });
+    .option('--json <file>', 'Write a JSON report to a new file')
+    .option('--junit <file>', 'Write a JUnit report to a new file')
+    .action(
+      async ({
+        config,
+        target,
+        json,
+        junit,
+      }: {
+        config: string;
+        target: string;
+        json?: string;
+        junit?: string;
+      }) => {
+        const scenario = await loadScenario(config);
+        const fixture = await readFixture(config, scenario.fixture.path);
+        const signature = scenario.security.signature;
+        const signingSecret = signature
+          ? process.env[signature.secretEnv]
+          : undefined;
+        const result = await runScenario(
+          scenario,
+          fixture,
+          target,
+          signingSecret === undefined ? {} : { signingSecret },
+        );
+        const redaction = {
+          redactPaths: scenario.security.redactPaths,
+          secrets: signingSecret ? [signingSecret] : [],
+        };
+        if (json)
+          await writeFile(json, renderJsonReport(result, redaction), {
+            flag: 'wx',
+          });
+        if (junit)
+          await writeFile(junit, renderJunitReport(result, redaction), {
+            flag: 'wx',
+          });
+        const summary = redactRunResult(result, redaction);
+        writeOut(
+          `${summary.passed ? 'PASS' : 'FAIL'} · ${summary.attempts.length} delivery attempts\n`,
+        );
+        for (const { kind, passed, detail } of summary.assertions) {
+          writeOut(
+            `${passed ? 'PASS' : 'FAIL'} ${escapeDiagnostic(kind)} · ${escapeDiagnostic(detail)}\n`,
+          );
+        }
+        outcome = result.passed ? 0 : 1;
+      },
+    );
+
+  program
+    .command('report')
+    .description('Convert an existing local JSON result')
+    .requiredOption('--input <file>', 'Input HookGuard JSON result')
+    .addOption(
+      new Option('--format <format>', 'Output format')
+        .choices(['json', 'junit'])
+        .default('junit'),
+    )
+    .action(
+      async ({
+        input,
+        format,
+      }: {
+        input: string;
+        format: 'json' | 'junit';
+      }) => {
+        if (/^[\\/]{2}/u.test(input)) {
+          throw new ConfigError([
+            { path: '$', message: 'requires a local report file' },
+          ]);
+        }
+        const bytes = await readFixture(input, basename(input));
+        let value: unknown;
+        try {
+          value = JSON.parse(bytes.toString('utf8'));
+        } catch {
+          throw new ConfigError([
+            { path: '$', message: 'has invalid report JSON' },
+          ]);
+        }
+        const result = runResultSchema.safeParse(value);
+        if (!result.success) {
+          throw new ConfigError([
+            { path: '$', message: 'is not a version 1 HookGuard result' },
+          ]);
+        }
+        writeOut(
+          format === 'json'
+            ? renderJsonReport(result.data)
+            : renderJunitReport(result.data),
+        );
+      },
+    );
 
   try {
     if (args.length === 0) {

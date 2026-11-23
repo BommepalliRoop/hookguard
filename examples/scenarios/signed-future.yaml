@@ -1,0 +1,23 @@
+version: 1
+name: synthetic-signed-future
+scenario: bad_signature
+fixture:
+  path: ./fixtures/payment-captured.json
+  eventIdPath: $.id
+execution:
+  count: 1
+  timeoutMs: 2000
+assertions:
+  - kind: http_status
+    expected: 401
+  - kind: state_json
+    url: http://127.0.0.1:3000/_test/state
+    jsonPath: $.orders
+    equals: {}
+security:
+  allowTargets:
+    - http://127.0.0.1:3000
+  redactPaths: []
+  signature:
+    secretEnv: HOOKGUARD_DEMO_SIGNING_SECRET
+    mode: future

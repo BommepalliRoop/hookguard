@@ -79,6 +79,13 @@ export const scenarioSchema = z.strictObject({
   security: z.strictObject({
     allowTargets: z.array(httpUrl).max(32),
     redactPaths: z.array(jsonPath).max(64),
+    signature: z
+      .strictObject({
+        secretEnv: z.string().regex(/^HOOKGUARD_[A-Z0-9_]{1,64}$/u),
+        mode: z.enum(['valid', 'invalid', 'stale', 'future']).optional(),
+        toleranceSeconds: z.int().min(1).max(3600).optional(),
+      })
+      .optional(),
   }),
 });
 

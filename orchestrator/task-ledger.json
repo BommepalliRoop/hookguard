@@ -556,11 +556,17 @@
       "phase": 4,
       "owner": "E",
       "dependencies": ["HG-012", "HG-027", "HG-028", "HG-029"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -569,11 +575,17 @@
       "phase": 4,
       "owner": "E",
       "dependencies": ["HG-031"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -582,11 +594,17 @@
       "phase": 4,
       "owner": "A",
       "dependencies": ["HG-014", "HG-021", "HG-028", "HG-031"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -595,11 +613,17 @@
       "phase": 4,
       "owner": "C",
       "dependencies": ["HG-012", "HG-029", "HG-031"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -608,11 +632,17 @@
       "phase": 4,
       "owner": "C",
       "dependencies": ["HG-023", "HG-030"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -621,11 +651,17 @@
       "phase": 4,
       "owner": "C",
       "dependencies": ["HG-035"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -634,11 +670,17 @@
       "phase": 4,
       "owner": "C",
       "dependencies": ["HG-021", "HG-022", "HG-023"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -647,11 +689,17 @@
       "phase": 4,
       "owner": "D",
       "dependencies": ["HG-021", "HG-037"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -660,11 +708,17 @@
       "phase": 4,
       "owner": "D",
       "dependencies": ["HG-031", "HG-034", "HG-035"],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
@@ -680,11 +734,17 @@
         "HG-038",
         "HG-039"
       ],
-      "branch": null,
+      "branch": "phase-4/security-reports",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "313 initial full tests; 11 final Express and signed-report tests; typecheck and build passed"
+      ],
+      "evidence": [
+        "packages/engine/test/signature.test.ts",
+        "packages/cli/test/signed-reports.test.ts",
+        "docs/security-model.md"
+      ],
       "completedAt": null
     },
     {
