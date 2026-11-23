@@ -24,7 +24,7 @@ HookGuard is a planned TypeScript CLI for testing webhook receivers against real
 5. Documentation, security hardening and tagged releases
 6. Optional web UI only after a useful CLI is stable
 
-Read [the project BRD](docs/plan/02_PROJECT_BRD.md), [architecture](docs/plan/03_ARCHITECTURE_HLD_LLD.md), [engineering backlog](docs/plan/04_PROJECT_DELIVERY_BACKLOG.md), and [Codex model routing](docs/plan/12_MODEL_ROUTING_AND_TASK_MATRIX.md).
+See [current implementation status](docs/STATUS.md). Read [the project BRD](docs/plan/02_PROJECT_BRD.md), [architecture](docs/plan/03_ARCHITECTURE_HLD_LLD.md), [engineering backlog](docs/plan/04_PROJECT_DELIVERY_BACKLOG.md), and [Codex model routing](docs/plan/12_MODEL_ROUTING_AND_TASK_MATRIX.md).
 
 ## Getting started
 
@@ -36,4 +36,4 @@ Please read [Contributing](CONTRIBUTING.md) and [Security](SECURITY.md) before c
 
 ## License
 
-Licensing is pending maintainer selection; **do not assume permission to reuse the source until an explicit LICENSE file is added**.
+[MIT License](LICENSE) for the repository's original contents. Contributed code must respect the contributor's authority to license it; do not copy employer or third-party proprietary material.
