@@ -1,0 +1,9 @@
+{
+  "id": "evt_payment_001",
+  "type": "payment.captured",
+  "data": {
+    "orderId": "order_123",
+    "amountCents": 1200,
+    "currency": "USD"
+  }
+}
