@@ -280,16 +280,99 @@ describe('queue scheduling', () => {
 });
 
 describe('queue checkpoints', () => {
+  function completedTask() {
+    return {
+      status: 'completed',
+      attempts: [
+        {
+          number: 1,
+          workerId: 'worker-1',
+          model: 'offline',
+          exitCode: 0,
+          outcome: 'completed',
+          checks: [
+            {
+              command: 'node',
+              args: ['--test'],
+              exitCode: 0,
+              reason: null,
+              durationMs: 25,
+            },
+          ],
+        },
+      ],
+      result: { commit: 'b'.repeat(40), files: ['task-a'] },
+      owner: null,
+      retryAt: null,
+    };
+  }
+
+  it.each([
+    [
+      'missing result',
+      (item) => {
+        item.result = null;
+      },
+    ],
+    [
+      'invalid commit',
+      (item) => {
+        item.result.commit = 'HEAD';
+      },
+    ],
+    [
+      'missing attempts',
+      (item) => {
+        item.attempts = [];
+      },
+    ],
+    [
+      'failed worker',
+      (item) => {
+        item.attempts[0].exitCode = 1;
+      },
+    ],
+    [
+      'missing check',
+      (item) => {
+        item.attempts[0].checks = [];
+      },
+    ],
+    [
+      'different command arguments',
+      (item) => {
+        item.attempts[0].checks[0].args = [];
+      },
+    ],
+    [
+      'failed check',
+      (item) => {
+        item.attempts[0].checks[0].exitCode = 1;
+      },
+    ],
+  ])('rejects a completed checkpoint with %s', async (_label, corrupt) => {
+    const value = config();
+    const state = createState(value, 'a'.repeat(40));
+    const item = completedTask();
+    corrupt(item);
+    state.tasks['task-a'] = item;
+    const file = join(directory, 'state.json');
+    await saveState(file, state);
+    await expect(loadState(file, value)).rejects.toThrow(
+      'checkpoint.tasks.task-a',
+    );
+  });
+
   it('round trips and replaces an existing checkpoint', async () => {
     const value = config();
-    const state = createState(value, 'base');
+    const state = createState(value, 'a'.repeat(40));
     const file = join(directory, 'nested', 'checkpoint.json');
     await expect(loadState(file, value)).rejects.toMatchObject({
       code: 'ENOENT',
     });
     await saveState(file, state);
     await expect(loadState(file, value)).resolves.toEqual(state);
-    state.tasks['task-a'].status = 'completed';
+    state.tasks['task-a'] = completedTask();
     await saveState(file, state);
     await expect(loadState(file, value)).resolves.toEqual(state);
     await expect(readdir(join(directory, 'nested'))).resolves.toEqual([
@@ -299,7 +382,7 @@ describe('queue checkpoints', () => {
 
   it('rejects incompatible configuration and invalid task state', async () => {
     const value = config();
-    const state = createState(value, 'base');
+    const state = createState(value, 'a'.repeat(40));
     const file = join(directory, 'checkpoint.json');
     await saveState(file, state);
     await expect(loadState(file, config([task('task-b')]))).rejects.toThrow(

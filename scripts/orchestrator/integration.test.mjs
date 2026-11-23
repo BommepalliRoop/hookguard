@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect, test } from 'vitest';
 import { createFixture, makeTask } from './test-fixture.mjs';
@@ -100,6 +100,17 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
   expect(readFileSync(ledger, 'utf8')).toBe(ledgerBeforeResume);
   expect(fixture.resultCommits()).toEqual(resultCommits);
   expect(fixture.readState().tasks).toEqual(checkpoint.tasks);
+  checkpoint.tasks.prepare.result.commit = initialCommit;
+  writeFileSync(
+    join(fixture.root, 'state', 'state.json'),
+    JSON.stringify(checkpoint),
+  );
+  const corruptResume = fixture.run();
+  expect(corruptResume.status).toBe(1);
+  expect(corruptResume.output).toContain(
+    'differs from its recorded attempt branch',
+  );
+  expect(readFileSync(ledger, 'utf8')).toBe(ledgerBeforeResume);
 }, 120_000);
 
 test('assigns independent tasks to two workers at the same time', ({

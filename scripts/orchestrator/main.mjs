@@ -11,6 +11,7 @@ import { hostname } from 'node:os';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import process from 'node:process';
 import { setTimeout as wait } from 'node:timers/promises';
+import { pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import {
   chatGptEnvironment,
@@ -235,7 +236,12 @@ async function hasPackageLock(directory) {
   );
 }
 
-async function runQueue(context, offline, models) {
+export async function runQueue(
+  context,
+  offline,
+  models,
+  runWorker = runProcess,
+) {
   const {
     config,
     state,
@@ -313,7 +319,7 @@ async function runQueue(context, offline, models) {
       }
       const command = offline ? process.execPath : codex;
       const args = offline ? [offline] : codexArgs(model, windowsSandbox);
-      const result = await runProcess(command, args, {
+      const result = await runWorker(command, args, {
         ...processOptions,
         cwd: workspace.directory,
         input: offline
@@ -357,6 +363,11 @@ async function runQueue(context, offline, models) {
           reason: failure.reason,
           exitCode: result.exitCode,
         });
+        return;
+      }
+      if (!offline) {
+        // Generated checks execute project code. Only reviewed code may run on the host.
+        failure.reason = 'candidate_review_required';
         return;
       }
       failure.reason = 'invalid_work';
@@ -528,11 +539,37 @@ async function main() {
       if (error.code !== 'ENOENT' || command !== 'run') throw error;
       return createState(config, await git(repoRoot, ['rev-parse', 'HEAD']));
     });
+    if (
+      Object.values(state.tasks).some(
+        (record) =>
+          record.status === 'completed' &&
+          record.attempts.at(-1).model !== 'offline',
+      )
+    ) {
+      throw new Error(
+        'This checkpoint contains previously generated model results. Review the changes and replay them using a trusted offline worker and a fresh state directory.',
+      );
+    }
     const runId = createHash('sha256')
       .update(runDirectory)
       .update(state.baseSha)
       .digest('hex')
       .slice(0, 12);
+    for (const [id, record] of Object.entries(state.tasks)) {
+      if (record.status !== 'completed') continue;
+      const attempt = record.attempts.at(-1).number;
+      const ref = `refs/heads/orchestrator/runs/${runId}/task-${id}-${attempt}`;
+      const head = await git(repoRoot, [
+        'rev-parse',
+        '--verify',
+        `${ref}^{commit}`,
+      ]);
+      if (head !== record.result.commit) {
+        throw new Error(
+          `Checkpoint result for ${id} differs from its recorded attempt branch`,
+        );
+      }
+    }
     let writer = Promise.resolve();
     let writeFailure;
     function checkpoint() {
@@ -657,9 +694,14 @@ async function main() {
   }
 }
 
-try {
-  process.exitCode = await main();
-} catch (error) {
-  process.stderr.write(`${error.message}\n`);
-  process.exitCode = 1;
+if (
+  process.argv[1] &&
+  pathToFileURL(process.argv[1]).href === import.meta.url
+) {
+  try {
+    process.exitCode = await main();
+  } catch (error) {
+    process.stderr.write(`${error.message}\n`);
+    process.exitCode = 1;
+  }
 }

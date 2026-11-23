@@ -14,7 +14,11 @@ flowchart LR
     Queue --> B[Worker 2 worktree]
     Queue --> C[Worker 3 worktree]
     Queue --> D[Worker 4 worktree]
-    A & B & C & D --> Check[Required checks and Git scope verification]
+    A & B & C & D --> Trust{Worker type}
+    Trust -->|Native model| Inspect[Stop for human review of candidate]
+    Inspect --> Replay[Replay reviewed changes with a trusted offline worker]
+    Replay --> Check[Required checks and Git scope verification]
+    Trust -->|Trusted offline| Check
     Check --> State
     State --> Review[Local review candidate]
     Review --> CI[Draft PR and GitHub Actions]
@@ -30,10 +34,13 @@ pnpm install --frozen-lockfile
 $runPath = Join-Path (Split-Path (Get-Location).Path -Parent) 'HookGuard-phase1-run'
 pnpm run orchestrate run --state-dir $runPath --confirm-no-paid-usage
 pnpm run orchestrate status --state-dir $runPath
-pnpm run orchestrate review --state-dir $runPath
 ```
 
-The controller emits JSON lines. A `worker_started` event includes the process ID, model, owner, worktree, and branch. The state file records the base SHA, configuration digest, task state, current owner, attempts, actual command exit codes and durations, and verified result commits. `review` prepares a separate local candidate and verifies lint, formatting, type checks, build, and the coverage suite. The GitHub workflow runs those checks on a draft PR alongside the offline integration and security tests.
+The controller emits JSON lines. A `worker_started` event includes the process ID, model, owner, worktree, and branch. The state file records the base SHA, configuration digest, task state, current owner, attempts, actual command exit codes and durations, and verified result commits.
+
+A successful native model invocation leaves its changes in the attempt directory recorded in the checkpoint. The controller reports `candidate_review_required` and exits unsuccessfully. Dependent tasks remain blocked. Inspect all candidate changes, including untracked files, before running any candidate code. To continue, use a trusted offline worker that applies only the exact changes you reviewed to a fresh worktree at the same base. Keep the approved inputs outside the model worktrees. Use a fresh state directory for the replay. Checkpoints from earlier versions that completed native model tasks also require this review and replay before further execution.
+
+Once the trusted replay completes, use `pnpm run orchestrate review --state-dir <replay-directory>` to run lint, formatting, type checks, build, and the coverage suite. Each invocation creates a fresh candidate worktree and branch, preserving earlier candidates for diagnosis. The GitHub workflow runs those checks on a draft PR alongside the offline integration and security tests.
 
 Use `--codex-bin` on `run` to select a standalone Codex executable. Native Windows runs can also select an available sandbox implementation with `--windows-sandbox elevated` or `--windows-sandbox unelevated`. The workspace-write policy applies in both cases. [Codex configuration basics](https://learn.chatgpt.com/docs/config-file/config-basic)
 
@@ -45,6 +52,6 @@ Use the same manifest and state directory to resume. Completed tasks retain thei
 
 - Tasks have IDs, phases, prerequisite IDs, repository-relative file scopes, a model role, a prompt, and required checks. The controller dispatches only tasks in the earliest unfinished phase whose prerequisites succeeded. Overlapping path scopes never run concurrently. Declare dependencies for tasks that intentionally change the same files.
 - Slots have one owner at a time. Four is the maximum. Each model process and check has a wall-clock and output limit. Transient failures have bounded retries and backoff. Usage-limit, invalid work, and failed verification are surfaced in the checkpoint.
-- The controller checks worker changes before and after running verification. It requires an implementation or configuration change and an automated test change, rejects out-of-scope paths and unsupported Git file types, and commits verified changes on the attempt branch.
-- Git worktrees isolate edits and history. Local test commands still execute using the host user's permissions. Review task prompts and commands before running them. Codex subprocesses request workspace-write mode with approval and network access disabled for model shell commands. CI uses local test subprocesses without model login.
+- For trusted offline workers the controller checks changes before and after running verification. It requires an implementation or configuration change and an automated test change, rejects out-of-scope paths and unsupported Git file types, and commits verified changes on the attempt branch. Resume requires a completion record with a full Git commit ID and successful results for the manifest's checks.
+- Git worktrees isolate edits and history. Codex subprocesses request workspace-write mode with approval and network access disabled for model shell commands. The controller can install frozen offline dependencies from a trusted base before invoking the worker. Checks for trusted offline workers execute using the host user's permissions. Fully automatic execution of unreviewed model-generated checks would require equivalent OS-level filesystem, credential, and network isolation. CI uses local test subprocesses without model login.
 - The terminal and host must stay active. Sleep pauses local progress, and a crash may require recovery. The controller prepares local branches and a candidate for review. Remote pushes and draft PR creation are owner-authorized steps, and merging requires a separate owner decision.

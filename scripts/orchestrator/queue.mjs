@@ -12,6 +12,7 @@ const statuses = new Set([
 ]);
 const safeIdentifier = /^[a-z0-9][a-z0-9-]{0,63}$/;
 const modelIdentifier = /^[a-z0-9][a-z0-9.-]{0,79}$/;
+const commitSha = /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/u;
 const windowsDevice = /^(?:con|prn|aux|nul|com[0-9¹²³]|lpt[0-9¹²³])(?:\.|$)/iu;
 
 function requireValue(condition, description) {
@@ -406,8 +407,8 @@ export async function loadState(file, config) {
   fields(state, ['version', 'baseSha', 'configDigest', 'tasks'], 'checkpoint');
   requireValue(state.version === 1, 'checkpoint.version must be 1');
   requireValue(
-    typeof state.baseSha === 'string' && state.baseSha.trim().length > 0,
-    'checkpoint.baseSha must be a nonempty string',
+    matches(commitSha, state.baseSha),
+    'checkpoint.baseSha must be a full Git SHA',
   );
   requireValue(
     state.configDigest === configDigest(config),
@@ -419,7 +420,9 @@ export async function loadState(file, config) {
     'checkpoint.tasks',
   );
   const owners = new Set();
-  for (const [id, item] of Object.entries(state.tasks)) {
+  for (const task of config.tasks) {
+    const id = task.id;
+    const item = state.tasks[id];
     const label = `checkpoint.tasks.${id}`;
     fields(item, ['status', 'attempts', 'owner', 'result', 'retryAt'], label);
     requireValue(statuses.has(item.status), `${label}.status is invalid`);
@@ -433,6 +436,15 @@ export async function loadState(file, config) {
       item.result === null || isRecord(item.result),
       `${label}.result is invalid`,
     );
+    if (item.status === 'completed') {
+      validateCompletion(task, item, label, config.workers);
+      requireValue(
+        task.dependsOn.every(
+          (dependency) => state.tasks[dependency]?.status === 'completed',
+        ),
+        `${label} has an incomplete dependency`,
+      );
+    }
     if (item.status === 'running') {
       requireValue(
         config.workers.includes(item.owner) && !owners.has(item.owner),
@@ -459,4 +471,49 @@ export async function loadState(file, config) {
     }
   }
   return state;
+}
+
+function validateCompletion(task, item, label, workers) {
+  const attempt = item.attempts.at(-1);
+  requireValue(
+    matches(commitSha, item.result?.commit) &&
+      Array.isArray(item.result.files) &&
+      item.result.files.length > 0 &&
+      item.result.files.every(
+        (file) =>
+          isSafePath(file) &&
+          task.paths.some(
+            (scope) => file === scope || file.startsWith(scope + '/'),
+          ),
+      ) &&
+      attempt?.number === item.attempts.length &&
+      workers.includes(attempt.workerId) &&
+      matches(modelIdentifier, attempt.model) &&
+      attempt.exitCode === 0 &&
+      attempt.outcome === 'completed',
+    `${label} lacks a verified completion result`,
+  );
+  const checks = attempt.checks;
+  const expected = [...task.checks];
+  if (Array.isArray(checks) && checks.length === expected.length + 1) {
+    expected.unshift({
+      command: 'pnpm',
+      args: ['install', '--offline', '--frozen-lockfile'],
+    });
+  }
+  requireValue(
+    Array.isArray(checks) &&
+      checks.length === expected.length &&
+      checks.every(
+        (check, index) =>
+          isRecord(check) &&
+          check.command === expected[index].command &&
+          JSON.stringify(check.args) === JSON.stringify(expected[index].args) &&
+          check.exitCode === 0 &&
+          check.reason === null &&
+          Number.isSafeInteger(check.durationMs) &&
+          check.durationMs >= 0,
+      ),
+    `${label} lacks successful required checks`,
+  );
 }

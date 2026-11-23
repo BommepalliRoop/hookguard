@@ -84,6 +84,16 @@ test(
       ...options,
       commits: [first.commit, second.commit],
     });
+    const repeated = await prepareReview({
+      ...options,
+      commits: [first.commit, second.commit],
+    });
+    assert.notEqual(repeated.directory, review.directory);
+    assert.notEqual(repeated.branch, review.branch);
+    assert.equal(
+      await git(repeated.directory, ['rev-parse', 'HEAD^{tree}']),
+      await git(review.directory, ['rev-parse', 'HEAD^{tree}']),
+    );
     assert.equal(
       await git(review.directory, ['rev-parse', 'HEAD^{tree}']),
       await git(next.directory, ['rev-parse', 'HEAD^{tree}']),

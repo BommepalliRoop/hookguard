@@ -1,7 +1,57 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect, test } from 'vitest';
+import { runQueue } from './main.mjs';
+import { createState, loadConfig } from './queue.mjs';
 import { createFixture, makeTask } from './test-fixture.mjs';
+
+test('retains a native model candidate without executing generated checks on the host', async ({
+  onTestFinished,
+}) => {
+  const fixture = createFixture(onTestFinished);
+  const task = makeTask('candidate');
+  const marker = join(fixture.root, 'check-ran');
+  fixture.writeConfig([task]);
+  const config = await loadConfig(join(fixture.root, 'queue.json'));
+  const state = createState(config, fixture.git('rev-parse', 'HEAD'));
+  const runDirectory = join(fixture.root, 'state');
+  mkdirSync(runDirectory);
+  await runQueue(
+    {
+      config,
+      state,
+      repoRoot: fixture.repository,
+      runDirectory,
+      runId: 'model-run',
+      abort: new globalThis.AbortController(),
+      checkpoint: async () => {},
+    },
+    undefined,
+    { routine: 'fixture-model' },
+    async (_command, _args, { cwd }) => {
+      writeFileSync(
+        join(cwd, task.paths[0]),
+        'export const candidate = true;\n',
+      );
+      writeFileSync(
+        join(cwd, task.paths[1]),
+        `import { writeFileSync } from 'node:fs';\nwriteFileSync(${JSON.stringify(marker)}, 'ran');\n`,
+      );
+      return { exitCode: 0, reason: null, outputBytes: 0, durationMs: 1 };
+    },
+  );
+  const record = state.tasks.candidate;
+  expect(record).toMatchObject({
+    status: 'failed',
+    result: { reason: 'candidate_review_required' },
+    attempts: [{ outcome: 'candidate_review_required', checks: [] }],
+  });
+  expect(existsSync(join(record.attempts[0].directory, task.paths[0]))).toBe(
+    true,
+  );
+  expect(existsSync(marker)).toBe(false);
+  expect(fixture.resultCommits()).toEqual([]);
+}, 120_000);
 
 test('rejects an out-of-scope staged change from an otherwise successful worker', ({
   onTestFinished,

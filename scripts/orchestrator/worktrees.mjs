@@ -1,4 +1,5 @@
 import { execFile } from 'node:child_process';
+import { randomUUID } from 'node:crypto';
 import { lstat, mkdir, realpath } from 'node:fs/promises';
 import { basename, dirname, join, resolve } from 'node:path';
 import process from 'node:process';
@@ -106,7 +107,7 @@ export function prepareWorktree(options) {
 }
 
 export function prepareReview({ commits, ...options }) {
-  return checkout(options, 'review', commits);
+  return checkout(options, `review-${randomUUID()}`, commits);
 }
 
 function safePath(value) {
