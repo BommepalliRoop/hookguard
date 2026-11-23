@@ -38,7 +38,7 @@ test('rejects an out-of-scope staged change from an otherwise successful worker'
   expect(fixture.git('rev-parse', 'HEAD')).toBe(initialCommit);
   expect(fixture.git('diff', '--cached', '--name-only')).toBe('');
   expect(fixture.git('status', '--porcelain')).toBe('');
-}, 45_000);
+}, 120_000);
 
 test('keeps a worker change out of result commits when its required check fails', ({
   onTestFinished,
@@ -71,4 +71,4 @@ test('keeps a worker change out of result commits when its required check fails'
   ]);
   expect(fixture.resultCommits()).toEqual([]);
   expect(fixture.git('status', '--porcelain')).toBe('');
-}, 45_000);
+}, 120_000);

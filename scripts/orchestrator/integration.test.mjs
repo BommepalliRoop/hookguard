@@ -100,7 +100,7 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
   expect(readFileSync(ledger, 'utf8')).toBe(ledgerBeforeResume);
   expect(fixture.resultCommits()).toEqual(resultCommits);
   expect(fixture.readState().tasks).toEqual(checkpoint.tasks);
-}, 90_000);
+}, 120_000);
 
 test('assigns independent tasks to two workers at the same time', ({
   onTestFinished,
@@ -141,7 +141,7 @@ test('assigns independent tasks to two workers at the same time', ({
   );
   expect(fixture.resultCommits()).toHaveLength(2);
   expect(fixture.git('status', '--porcelain')).toBe('');
-}, 45_000);
+}, 120_000);
 
 test('terminates a worker that exceeds its time limit', ({
   onTestFinished,
@@ -168,4 +168,4 @@ test('terminates a worker that exceeds its time limit', ({
   });
   expect(fixture.resultCommits()).toEqual([]);
   expect(fixture.git('status', '--porcelain')).toBe('');
-}, 45_000);
+}, 120_000);

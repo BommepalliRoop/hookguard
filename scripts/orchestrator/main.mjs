@@ -108,14 +108,14 @@ async function acquireLock(directory, allowRecovery) {
   return () => unlink(lock);
 }
 
-async function selectModels(config, cwd) {
+async function selectModels(config, cwd, codex) {
   const options = {
     cwd,
     env: chatGptEnvironment(),
     timeoutMs: 20_000,
     maxOutputBytes: 1_000_000,
   };
-  const account = await runProcess('codex', ['login', 'status'], options);
+  const account = await runProcess(codex, ['login', 'status'], options);
   if (
     account.exitCode !== 0 ||
     !/logged in using chatgpt/i.test(`${account.stdout}\n${account.stderr}`)
@@ -124,7 +124,7 @@ async function selectModels(config, cwd) {
       'Codex must be signed in with ChatGPT. API key sessions are rejected.',
     );
   }
-  const catalog = await runProcess('codex', ['debug', 'models'], options);
+  const catalog = await runProcess(codex, ['debug', 'models'], options);
   if (catalog.exitCode !== 0)
     throw new Error('Could not read the local Codex model catalog');
   const available = new Set(
@@ -171,7 +171,7 @@ function modelPrompt(task) {
   ].join('\n');
 }
 
-function codexArgs(model) {
+function codexArgs(model, windowsSandbox) {
   return [
     'exec',
     '--ignore-user-config',
@@ -185,6 +185,7 @@ function codexArgs(model) {
     'approval_policy="never"',
     '-c',
     'sandbox_workspace_write.network_access=false',
+    ...(windowsSandbox ? ['-c', `windows.sandbox="${windowsSandbox}"`] : []),
     '-c',
     'model_reasoning_effort="medium"',
     '--model',
@@ -206,7 +207,12 @@ async function runChecks(
       ...processOptions,
       cwd: directory,
       env: chatGptEnvironment(),
+      onSpawn(pid) {
+        attempt.activePid = pid;
+        void checkpoint();
+      },
     });
+    attempt.activePid = null;
     attempt.checks.push({
       ...check,
       exitCode: result.exitCode,
@@ -239,6 +245,8 @@ async function runQueue(context, offline, models) {
     checkpoint,
     abort,
     recordTranscripts,
+    codex,
+    windowsSandbox,
   } = context;
   const processOptions = {
     timeoutMs: config.limits.timeoutMs,
@@ -255,6 +263,7 @@ async function runQueue(context, offline, models) {
       workerId,
       model,
       pid: null,
+      activePid: null,
       directory: null,
       branch: null,
       startedAt: new Date().toISOString(),
@@ -302,8 +311,8 @@ async function runQueue(context, offline, models) {
           return;
         }
       }
-      const command = offline ? process.execPath : 'codex';
-      const args = offline ? [offline] : codexArgs(model);
+      const command = offline ? process.execPath : codex;
+      const args = offline ? [offline] : codexArgs(model, windowsSandbox);
       const result = await runProcess(command, args, {
         ...processOptions,
         cwd: workspace.directory,
@@ -313,6 +322,7 @@ async function runQueue(context, offline, models) {
         env: offline ? process.env : chatGptEnvironment(),
         onSpawn(pid) {
           attempt.pid = pid;
+          attempt.activePid = pid;
           void checkpoint();
           print({
             event: 'worker_started',
@@ -324,6 +334,7 @@ async function runQueue(context, offline, models) {
           });
         },
       });
+      attempt.activePid = null;
       attempt.exitCode = result.exitCode;
       attempt.workerDurationMs = result.durationMs;
       attempt.outputBytes = result.outputBytes;
@@ -339,6 +350,7 @@ async function runQueue(context, offline, models) {
       const workerFailure = classifyWorker(result, offline);
       if (workerFailure) {
         failure = workerFailure;
+        if (failure.reason === 'usage_limit') abort.abort();
         print({
           event: 'worker_failed',
           task: task.id,
@@ -370,6 +382,9 @@ async function runQueue(context, offline, models) {
     } catch (error) {
       print({ event: 'task_error', task: task.id, message: error.message });
     } finally {
+      if (failure && abort.signal.aborted && failure.reason !== 'usage_limit') {
+        failure = { reason: 'interrupted', transient: true };
+      }
       attempt.finishedAt = new Date().toISOString();
       record.owner = null;
       attempt.outcome = failure ? failure.reason : 'completed';
@@ -436,6 +451,8 @@ async function main() {
       config: { type: 'string', default: 'orchestrator/phase-1.json' },
       'state-dir': { type: 'string' },
       'offline-worker': { type: 'string' },
+      'codex-bin': { type: 'string' },
+      'windows-sandbox': { type: 'string' },
       'record-transcripts': { type: 'boolean' },
       'confirm-no-paid-usage': { type: 'boolean' },
       recover: { type: 'boolean' },
@@ -460,6 +477,18 @@ async function main() {
   }
   const offline =
     values['offline-worker'] && (await realpath(values['offline-worker']));
+  const codex = values['codex-bin']
+    ? await realpath(values['codex-bin'])
+    : 'codex';
+  const windowsSandbox = values['windows-sandbox'];
+  if (
+    windowsSandbox &&
+    (process.platform !== 'win32' ||
+      !['elevated', 'unelevated'].includes(windowsSandbox))
+  )
+    throw new Error(
+      'Windows sandbox mode must be elevated or unelevated on Windows',
+    );
   if (command === 'run' && !offline && !values['confirm-no-paid-usage']) {
     throw new Error(
       'Confirm there are zero ChatGPT credits and automatic reload is off with --confirm-no-paid-usage.',
@@ -523,7 +552,8 @@ async function main() {
       for (const record of Object.values(state.tasks).filter(
         ({ status }) => status === 'running',
       )) {
-        const pid = record.attempts.at(-1)?.pid;
+        const attempt = record.attempts.at(-1);
+        const pid = attempt?.activePid ?? attempt?.pid;
         if (pid != null && live(pid))
           throw new Error(`Worker PID ${pid} is still active`);
       }
@@ -596,7 +626,7 @@ async function main() {
       ['queued', 'retry_wait'].includes(status),
     );
     const models =
-      active && !offline ? await selectModels(config, repoRoot) : null;
+      active && !offline ? await selectModels(config, repoRoot, codex) : null;
     await runQueue(
       {
         config,
@@ -607,6 +637,8 @@ async function main() {
         checkpoint,
         abort,
         recordTranscripts: values['record-transcripts'],
+        codex,
+        windowsSandbox,
       },
       offline,
       models,

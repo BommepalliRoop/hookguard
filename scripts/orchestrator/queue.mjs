@@ -127,7 +127,10 @@ function validateTask(task, index) {
       !task.prompt.includes('\0'),
     `${label}.prompt must be a nonempty string without NUL characters`,
   );
-  requireValue(Array.isArray(task.checks), `${label}.checks must be an array`);
+  requireValue(
+    Array.isArray(task.checks) && task.checks.length > 0,
+    `${label}.checks must be a nonempty array`,
+  );
   const checks = task.checks.map((check, checkIndex) => {
     const checkLabel = `${label}.checks[${checkIndex}]`;
     fields(check, ['command', 'args'], checkLabel);

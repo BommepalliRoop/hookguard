@@ -30,7 +30,7 @@ function task(id, overrides = {}) {
     paths: [id],
     role: 'routine',
     prompt: 'Complete the scoped task.',
-    checks: [],
+    checks: [{ command: 'node', args: ['--test'] }],
     ...overrides,
   };
 }
@@ -64,6 +64,12 @@ function assignmentIds(assignments) {
 }
 
 describe('queue config', () => {
+  it('requires at least one worker verification command', async () => {
+    await expect(
+      readConfig(config([task('task-a', { checks: [] })])),
+    ).rejects.toThrow('checks must be a nonempty array');
+  });
+
   it('keeps check arguments and human-readable prompts intact', async () => {
     const value = config([
       task('task-a', {

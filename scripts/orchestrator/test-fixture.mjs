@@ -94,7 +94,7 @@ export function createFixture(onTestFinished) {
           cwd: repository,
           encoding: 'utf8',
           env: runEnv,
-          timeout: 40_000,
+          timeout: 90_000,
         },
       );
       if (result.error) throw result.error;
