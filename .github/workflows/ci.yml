@@ -30,7 +30,8 @@ jobs:
       - run: pnpm format:check
       - run: pnpm typecheck
       - run: pnpm build
-      - run: node packages/cli/dist/index.js --help
+      - name: Smoke test the built CLI
+        run: node scripts/phase1/cli-smoke.mjs
       - name: Run tests and offline orchestrator checks
         run: pnpm test:coverage
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
