@@ -321,6 +321,12 @@ describe('queue checkpoints', () => {
       },
     ],
     [
+      'unsafe descendant of a directory scope',
+      (item) => {
+        item.result.files = ['task-a/CON.ts'];
+      },
+    ],
+    [
       'missing attempts',
       (item) => {
         item.attempts = [];
@@ -378,6 +384,30 @@ describe('queue checkpoints', () => {
     await expect(readdir(join(directory, 'nested'))).resolves.toEqual([
       'checkpoint.json',
     ]);
+  });
+
+  it('rejects exhausted or previously attempted tasks relabeled as queued', async () => {
+    const value = config();
+    const state = createState(value, 'a'.repeat(40));
+    const file = join(directory, 'state.json');
+    const item = state.tasks['task-a'];
+    Object.assign(item, {
+      status: 'failed',
+      attempts: [{ number: 1 }, { number: 2 }],
+      result: { reason: 'worker_exit' },
+    });
+    await saveState(file, state);
+    await expect(loadState(file, value)).resolves.toEqual(state);
+    item.status = 'queued';
+    await saveState(file, state);
+    await expect(loadState(file, value)).rejects.toThrow('while queued');
+    item.result = null;
+    await saveState(file, state);
+    await expect(loadState(file, value)).rejects.toThrow('while queued');
+    item.attempts = [];
+    item.result = { reason: 'worker_exit' };
+    await saveState(file, state);
+    await expect(loadState(file, value)).rejects.toThrow('while queued');
   });
 
   it('rejects incompatible configuration and invalid task state', async () => {

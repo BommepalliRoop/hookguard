@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
+import { platform } from 'node:process';
 import { test } from 'vitest';
 import {
   commitWork,
@@ -145,6 +146,15 @@ test(
     await writeFile(join(worker.directory, 'src-old.mjs'), 'x');
     await assert.rejects(commitWork(args), /Outside task scope/);
     await rm(join(worker.directory, 'src-old.mjs'));
+    // DEL is a valid NTFS filename character. CON.ts exercises the POSIX-only case.
+    const unsafe = join(
+      worker.directory,
+      'src',
+      platform === 'win32' ? 'unsafe\x7f.ts' : 'CON.ts',
+    );
+    await writeFile(unsafe, 'x');
+    await assert.rejects(commitWork(args), /Unsafe repository path/);
+    await rm(unsafe);
     const file = 'src/private.ignored';
     await writeFile(join(worker.directory, file), 'x');
     await git(worker.directory, ['add', '-f', '--', file]);

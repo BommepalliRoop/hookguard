@@ -4,6 +4,7 @@ import { lstat, mkdir, realpath } from 'node:fs/promises';
 import { basename, dirname, join, resolve } from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
+import { isSafePath } from './queue.mjs';
 
 const exec = promisify(execFile);
 const identity = [
@@ -111,16 +112,7 @@ export function prepareReview({ commits, ...options }) {
 }
 
 function safePath(value) {
-  if (
-    typeof value !== 'string' ||
-    value.includes('\\') ||
-    value.includes('\0') ||
-    /^[a-z]:/i.test(value) ||
-    value
-      .split('/')
-      .some((part) => !part || ['.', '..', '.git'].includes(part.toLowerCase()))
-  )
-    throw new Error('Unsafe repository path');
+  if (!isSafePath(value)) throw new Error('Unsafe repository path');
   return value;
 }
 

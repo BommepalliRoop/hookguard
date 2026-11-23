@@ -77,7 +77,7 @@ function pathKey(path) {
   return path.normalize('NFC').toLowerCase();
 }
 
-function isSafePath(path) {
+export function isSafePath(path) {
   return (
     typeof path === 'string' &&
     path.length <= 1024 &&
@@ -436,6 +436,12 @@ export async function loadState(file, config) {
       item.result === null || isRecord(item.result),
       `${label}.result is invalid`,
     );
+    if (item.status === 'queued') {
+      requireValue(
+        item.attempts.length === 0 && item.result === null,
+        `${label} must have no attempts or result while queued`,
+      );
+    }
     if (item.status === 'completed') {
       validateCompletion(task, item, label, config.workers);
       requireValue(
