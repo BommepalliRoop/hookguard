@@ -34,10 +34,6 @@ There is no installable version yet. Once the CLI is implemented, this section w
 
 Please read [Contributing](CONTRIBUTING.md) and [Security](SECURITY.md) before contributing. All contributions must be original or appropriately licensed, include tests where applicable, and respect maintainer feedback.
 
-## Separate contributor program plan
-
-The project owner is also pursuing legitimate contributions to **other** open-source projects. Our separate external contribution plan contains **research topics only**, not confirmed defects or promised PRs. Private applicant planning documents are intentionally not published in this product repository. Contributions to this owner-controlled repository do not count as external PRs for Anthropic's 100-merged-PR route. No qualification or approval is guaranteed.
-
 ## License
 
 Licensing is pending maintainer selection; **do not assume permission to reuse the source until an explicit LICENSE file is added**.
