@@ -164,6 +164,7 @@ test('terminates a worker that exceeds its time limit', ({
   expect(fixture.readState().tasks.timeout).toMatchObject({
     status: 'failed',
     owner: null,
+    attempts: [{ outcome: 'timeout' }],
   });
   expect(fixture.resultCommits()).toEqual([]);
   expect(fixture.git('status', '--porcelain')).toBe('');

@@ -29,6 +29,11 @@ test('rejects an out-of-scope staged change from an otherwise successful worker'
   expect(readFileSync(join(fixture.root, 'staged.txt'), 'utf8').trim()).toBe(
     'src/baseline.mjs',
   );
+  expect(fixture.readState().tasks.scoped).toMatchObject({
+    status: 'failed',
+    result: { reason: 'invalid_work' },
+    attempts: [{ outcome: 'invalid_work' }],
+  });
   expect(fixture.resultCommits()).toEqual([]);
   expect(fixture.git('rev-parse', 'HEAD')).toBe(initialCommit);
   expect(fixture.git('diff', '--cached', '--name-only')).toBe('');

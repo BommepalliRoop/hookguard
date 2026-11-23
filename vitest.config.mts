@@ -6,6 +6,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['packages/*/src/**/*.ts', 'scripts/orchestrator/*.mjs'],
+      exclude: ['scripts/orchestrator/test-fixture.mjs'],
       reporter: ['text', 'lcov'],
     },
   },
