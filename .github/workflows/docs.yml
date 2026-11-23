@@ -1,0 +1,16 @@
+name: Documentation link check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify local Markdown links
+        run: python3 scripts/check_docs.py
