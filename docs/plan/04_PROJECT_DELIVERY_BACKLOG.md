@@ -1,6 +1,6 @@
 # HookGuard — 60 Delivery Tasks (Model Assigned)
 
-> These are **internal engineering tasks in YOUR project**. Even if you implement them as 60 PRs, they **DO NOT count** toward the 100 external PR qualification route. Do not artificially split fixes just to increase numbers.
+> These are 60 independent *engineering tasks*, not 60 completed changes or promised pull requests. Do not artificially split changes for metrics.
 
 ## Definition of done for every task
 - Technical requirements written down; test before and after for bug fixes.
