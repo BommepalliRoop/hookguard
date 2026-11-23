@@ -37,6 +37,8 @@ The controller emits JSON lines. A `worker_started` event includes the process I
 
 Use `--codex-bin` on `run` to select a standalone Codex executable. Native Windows runs can also select an available sandbox implementation with `--windows-sandbox elevated` or `--windows-sandbox unelevated`. The workspace-write policy applies in both cases. [Codex configuration basics](https://learn.chatgpt.com/docs/config-file/config-basic)
 
+For environments without model-backed shell access, `--offline-worker FILE` runs a trusted local Node module in each attempt's worktree. It reads a JSON object with `task`, `workerId`, `attempt`, and `model` from standard input. It exits 0 when its edits are ready, 75 for a transient failure, or another nonzero code for a permanent failure. The same file-scope and verification gates apply. Warm the pnpm cache before running tasks in a pnpm repository.
+
 Use the same manifest and state directory to resume. Completed tasks retain their commits. A stale lock or interrupted running task requires `--recover` after checking that its processes have exited. An active owner or different host prevents recovery. Each attempt gets a fresh worktree. Failed worktrees are retained for diagnosis. Create a new state directory to run a revised manifest. Use `--record-transcripts` only if needed for local diagnosis and keep those files private.
 
 ## Scheduling and boundaries

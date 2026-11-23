@@ -291,7 +291,7 @@ async function runQueue(context, offline, models) {
       attempt.directory = workspace.directory;
       attempt.branch = workspace.branch;
       await checkpoint();
-      if (!offline && (await hasPackageLock(workspace.directory))) {
+      if (await hasPackageLock(workspace.directory)) {
         const install = [
           {
             command: 'pnpm',
