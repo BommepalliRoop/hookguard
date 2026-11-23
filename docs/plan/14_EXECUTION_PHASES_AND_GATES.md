@@ -1,6 +1,6 @@
 # 14 — HookGuard Delivery Plan: Phases, Dependencies and Gates
 
-**Use:** `09_CODEX_MASTER_PROMPT.md` together with this file and `12_MODEL_ROUTING_AND_TASK_MATRIX.md`. Each phase requires actual verification; a written checklist is not proof of implementation.
+**Use:** `09_CODEX_PRODUCT_EXECUTION.md` together with this file and `12_MODEL_ROUTING_AND_TASK_MATRIX.md`. Each phase requires actual verification; a written checklist is not proof of implementation.
 
 | Phase | Work | Backlog IDs | Primary | Exit gate |
 |---|---|---|---|---|
@@ -11,8 +11,6 @@
 | 4 / Security+Reports | Result/JUnit, tamper/replay tests, SSRF defense, redaction | HG-031–040 | Astra + Sol | Fail-closed checks, reproducible e2e evidence and code review |
 | 5 / Alpha | DX, examples, release docs, npm metadata, optional Action | HG-041–050 | Sol + Astra release gate | Alpha approved and users can run quickstart |
 | 6 / Adoption | More adapters, feedback, compatibility, stable release | HG-051–060 | Sol; Astra stability | Genuine users and stable quality proven; release authorized |
-| 7 / External OSS | Investigate each EXT-001 through EXT-100 sequentially | 100 research slots | Astra discovery; Sol fix; Astra review | **No credit until real upstream merger confirmed** |
-| 8 / Application | Applicant eligibility audit and submission | Independent evidence from 00, 06, 07, 10 | Astra | One qualifying track + general conditions met; program still open |
 
 ## Critical demo path
 
@@ -28,10 +26,10 @@
 - Implement runnable production-grade functionality, not TODO-only scaffolds or mock proofs.
 - No network fetch to unapproved external URLs. Localhost is permitted with explicit target allowlist, redirect denial and caps.
 - Separate test-runner behavior from the consumer fixture: tests must catch consumer flaws rather than artificially mark success.
-- One coherent issue/change per reviewable PR. Own-repo PR count is irrelevant to 100 external PRs.
+- One coherent issue/change per reviewable PR. Do not inflate engineering metrics.
 - Stop before remote push, publishing package, deploying, incurring costs, submitting upstream PR, or sending applications unless the user authorizes the action.
 - Always report exact test commands, passing/failing cases and unimplemented scope.
 
 ## Completion definition
 
-**Documentation complete** means files and execution instructions exist. **MVP complete** means the critical demo and security suite actually run. **Public release complete** means user approves publish and GitHub shows the code/release. **External PR qualifying** means GitHub shows an authentic merged PR to a third-party repo. **Claude eligibility complete** means a live audit proves all prerequisites, not when a tracker reaches 100 planned slots. **Claude sponsorship awarded** means Anthropic approves; no model can guarantee that result.
+**Documentation complete** means files and execution instructions exist. **MVP complete** means the critical demo and security suite actually run. **Public release complete** means user approves publish and GitHub shows the code/release. **Engineering task complete** means the code and tests are independently verifiable, not merely planned.
