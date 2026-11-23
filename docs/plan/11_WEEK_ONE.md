@@ -1,6 +1,6 @@
 # Week 1 Sprint (Nov 23–29, 2026)
 
-**Objective:** one functional local CLI demo and one genuinely useful external issue investigated. Avoid overcommitting.
+**Objective:** a functional local CLI demo and a verified, reviewable first sprint. Avoid overcommitting.
 
 ## Day 1 — scope, safety, scaffold (Sol for code; Astra for IP/security review)
 
@@ -8,7 +8,7 @@
 - [ ] Confirm legal right to publish original independent code.
 - [ ] Use existing public project name `HookGuard` and verify npm/package namespace availability (do not create a second repo).
 - [ ] Create *local-only* TypeScript workspace for the existing `BommepalliRoop/hookguard` repo, strict TS, pnpm scripts and Vitest.
-- [ ] Draft MIT license and OSS community docs; publish only after owner confirms.
+- [x] Publish initial MIT license and OSS community documentation; owner must still confirm any subsequently contributed IP is safe to publish.
 
 ## Day 2 — define test contract (Astra for schema; Sol for tests)
 
@@ -34,12 +34,12 @@
 - [ ] Add lint/typecheck/unit/e2e workflow; run it locally first.
 - [ ] Write a quickstart that a stranger can follow without cloud services.
 
-## Day 6 — optional upstream code study (separate from HookGuard; not a project delivery gate)
+## Day 6 — integration review (optional upstream code study is separate)
 
 - [ ] Inspect [ant-design/x issue #2075](https://github.com/ant-design/x/issues/2075); check issue open, duplicates, other PRs, project guidelines and license.
 - [ ] Reproduce the icon-spacing issue on current branch.
 - [ ] Write failing test and propose small fix **only if still needed and welcome**.
-- [ ] Show PR draft and test output to user before submitting upstream.
+- [ ] If an external fix is investigated separately, show the test output and draft before any upstream submission.
 
 ## Day 7 — QA and review (Astra final gate)
 
