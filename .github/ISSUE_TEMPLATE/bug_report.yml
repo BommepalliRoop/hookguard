@@ -21,7 +21,17 @@ body:
     id: version
     attributes:
       label: HookGuard version or commit
-      description: If no version exists, say "unreleased".
+      description: For development builds, include the commit hash if available.
+  - type: input
+    id: environment
+    attributes:
+      label: Operating system, Node.js, and pnpm versions
+      placeholder: Windows 11, Node.js 26, pnpm 11.25.0
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Minimal synthetic scenario or command
+      description: Include only the inputs needed to reproduce the defect, with secrets and customer data removed.
   - type: textarea
     id: evidence
     attributes:

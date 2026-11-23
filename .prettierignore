@@ -1,0 +1,8 @@
+coverage/
+dist/
+pnpm-lock.yaml
+
+# Preserve the existing documentation and templates during the toolchain rollout.
+*.md
+.github/ISSUE_TEMPLATE/
+.github/workflows/docs.yml

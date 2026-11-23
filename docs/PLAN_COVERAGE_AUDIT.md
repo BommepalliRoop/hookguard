@@ -4,6 +4,8 @@
 **Repository:** https://github.com/BommepalliRoop/hookguard  
 **Default branch:** `BommepalliRoop_ProgFunda`
 
+This audit records the initial documentation-only repository. See [implementation status](STATUS.md) for subsequent engineering changes.
+
 ## Source-of-truth split
 
 The original Codex planning archive contains **00–15** numbered plans. It mixes public product engineering instructions with applicant-specific planning. The original archive is not the same thing as the public product repository.
