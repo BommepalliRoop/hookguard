@@ -4,7 +4,7 @@
 
 HookGuard is a planned TypeScript CLI for testing webhook receivers against realistic failure scenarios: duplicate delivery, retries, reordered events, invalid signatures, idempotency, timeout handling, and CI regression checks.
 
-> **Status (2026-11-23):** The development workspace and CLI entry point are available. Webhook scenario validation and delivery are planned for later milestones.
+> **Status (2026-11-23):** The CLI validates version 1 scenario YAML and local fixtures. See the implementation tracker for current delivery and reporting milestones.
 
 ## What we'll build
 
@@ -34,9 +34,10 @@ From a checkout, use Node.js 26 LTS (Node.js 22.13+ and 24 LTS are also in the w
 pnpm install --frozen-lockfile
 pnpm build
 node packages/cli/dist/index.js --help
+node packages/cli/dist/index.js validate --config examples/scenarios/duplicate.yaml
 ```
 
-The CLI currently prints usage and version information. See [Contributing](CONTRIBUTING.md) for the development checks.
+See the [scenario reference](docs/scenario-reference.md) for supported fields and [Contributing](CONTRIBUTING.md) for development checks.
 
 ## Open-source participation
 

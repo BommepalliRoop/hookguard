@@ -1,7 +1,11 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@hookguard/schema": ["./packages/schema/src/index.ts"],
+      "@hookguard/engine": ["./packages/engine/src/index.ts"]
+    }
   },
   "include": ["packages/**/*.ts", "vitest.config.mts"],
   "exclude": ["node_modules", "**/dist"]

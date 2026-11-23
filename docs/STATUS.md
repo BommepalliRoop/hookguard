@@ -12,7 +12,7 @@ Last reviewed: 2026-11-23
 | Documentation checks | Passed in CI | [Documentation workflow run](https://github.com/BommepalliRoop/hookguard/actions/runs/45122227953) |
 | Engineering workspace and CLI entry point | Verified locally and in CI | [Workspace scripts](../package.json) and [CLI tests](../packages/cli/test/program.test.ts) |
 | Build, formatting, lint, type check, and coverage CI | Passed on Node.js 22, 24, and 26 | [Engineering workflow run](https://github.com/BommepalliRoop/hookguard/actions/runs/45122228073) |
-| CLI scenario validation and schema | Not implemented | Planned HG-011–020 |
+| CLI scenario validation and schema | Verified locally | [Scenario reference](scenario-reference.md), [schema package](../packages/schema/package.json), and [CLI tests](../packages/cli/test/program.test.ts) |
 | Duplicate/retry/signature simulation | Not implemented | Planned HG-021–040 |
 | Webhook delivery test suite and example receiver | Not implemented | Planned engineering backlog |
 | npm release | Not published | Owner approval and verified tests required |
@@ -21,6 +21,10 @@ Last reviewed: 2026-11-23
 **Milestone checkboxes are planning tasks, not verified completion.** Only mark a task done after checking code, tests and CI evidence.
 
 Phase 0 (HG-001–006) and Phase 1 (HG-007–010) were verified in [the engineering base pull request](https://github.com/BommepalliRoop/hookguard/pull/1).
+
+The Phase 1 orchestrator and follow-up checks were verified in the stacked [orchestrator pull request](https://github.com/BommepalliRoop/hookguard/pull/2).
+
+Phase 2 (HG-011–020) adds strict scenario and run-result contracts, bounded YAML and fixture loading, offline CLI validation, a synthetic payment fixture, and seeded scheduling primitives. The focused Windows Node.js 22 run passed 121 tests, and the compiled CLI validated the example fixture. Hosted CI remains tied to an approved branch push.
 
 ## Model routing
 
@@ -34,4 +38,4 @@ The repository owner confirmed the right to license HookGuard's new code under M
 
 ## Next technical milestone
 
-Define and test the version 1 scenario and report contracts, then implement offline CLI scenario validation.
+Implement the local HTTP delivery engine and verify the duplicate scenario against deliberately faulty and fixed consumers.
