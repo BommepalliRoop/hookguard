@@ -21,18 +21,18 @@
 
 ## Growth ladder and measurement
 
-| Milestone | What counts | Is it itself Anthropic eligibility? |
+| Milestone | What counts | What does this establish? |
 | --- | --- | --- |
-| v0.1 functional | Working local CLI + docs/tests | No |
-| 5 real external users | Verifiable installs or public usage (consent respected) | No |
-| 2 genuine external merged contributors | Distinct outside people with real changes | No |
-| 20 genuine external merged contributors in prior 12m | GitHub verified, distinct users | Potential direct community builder route |
-| 500 dependent repositories/100 packages | Registry dependency data | Potential direct library route |
-| 200k monthly downloads | Public package registry records | Potential direct download route |
-| OpenSSF criticality score >=0.4 | Verified OpenSSF result | Potential direct route |
-| Meaningful ecosystem dependents | Evidence of critical adoption even without numeric route | Possible discretionary review |
+| v0.1 functional | Working local CLI + docs/tests | Usable product |
+| 5 real external users | Verifiable installs or public usage (consent respected) | Initial validation |
+| 2 genuine external merged contributors | Distinct outside people with real changes | Healthy collaboration |
+| 20 genuine external merged contributors in prior 12m | GitHub verified, distinct users | Sustained contributor community |
+| 500 dependent repositories/100 packages | Registry dependency data | Broad adoption |
+| 200k monthly downloads | Public package registry records | Broad distribution |
+| OpenSSF criticality score >=0.4 | Verified OpenSSF result | Criticality signal |
+| Meaningful ecosystem dependents | Evidence of critical adoption even without numeric route | Documented utility |
 
-**Important:** An application requires one threshold + general requirements. Do not buy downloads, reciprocal PRs, fake forks, or ask others to contribute solely to qualify.
+**Important:** Do not buy downloads, reciprocal PRs, fake forks or recruit token contributions. Build community only where there is genuine product value.
 
 ## Differentiation to validate with users
 
