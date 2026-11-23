@@ -10,10 +10,14 @@ export default defineConfig({
       '@hookguard/engine': fileURLToPath(
         new URL('./packages/engine/src/index.ts', import.meta.url),
       ),
+      '@hookguard/express-consumer': fileURLToPath(
+        new URL('./examples/express-consumer/src/index.ts', import.meta.url),
+      ),
     },
   },
   test: {
     environment: 'node',
+    maxWorkers: 2,
     coverage: {
       provider: 'v8',
       include: ['packages/*/src/**/*.ts', 'scripts/orchestrator/*.mjs'],

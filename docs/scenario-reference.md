@@ -19,3 +19,11 @@ Run `hookguard validate --config examples/scenarios/duplicate.yaml` after buildi
 Use `http_status` with one expected status or a list. Use `delivery_count` with the expected number of attempts. Use `state_json` with a read-only endpoint, simple JSONPath, and the expected JSON value. A status check verifies the HTTP response. The state probe verifies the observable business effect.
 
 The CLI exit codes are 0 for success, 1 for a failed scenario assertion, 2 for configuration or usage errors, 3 for target policy rejection, and 4 for unexpected runtime failures.
+
+## Delivery and retries
+
+`run` sends events to an explicit loopback origin listed in `security.allowTargets`. A state probe uses GET and must also use an allowed origin. Redirect responses stop execution.
+
+Duplicate scenarios send the original bytes to the same target for each delivery. An out-of-order fixture is a JSON array of events. Its seed produces a repeatable order. A retry policy sets `maxAttempts`, fixed `backoffMs`, optional seeded `jitterMs`, and retryable HTTP `statuses`. For retryable 429 and 503 responses, a longer valid `Retry-After` can increase the delay up to 60 seconds.
+
+`http_status` evaluates the last attempt of each delivery. `delivery_count` counts all attempts, including retries. `state_json` reads the observed state after delivery.

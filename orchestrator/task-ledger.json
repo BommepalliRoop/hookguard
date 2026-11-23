@@ -1,0 +1,905 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "HG-001",
+      "title": "Check repo/package name conflicts; choose final public identity",
+      "phase": 0,
+      "owner": "C",
+      "dependencies": [],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-002",
+      "title": "Confirm personal IP ownership; no employer material",
+      "phase": 0,
+      "owner": "C",
+      "dependencies": [],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-003",
+      "title": "Add OSI-approved MIT license, year/author placeholders",
+      "phase": 0,
+      "owner": "C",
+      "dependencies": ["HG-002"],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-004",
+      "title": "Create root README problem/quickstart/limitations",
+      "phase": 0,
+      "owner": "E",
+      "dependencies": ["HG-001"],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-005",
+      "title": "Add CONTRIBUTING.md and Code of Conduct",
+      "phase": 0,
+      "owner": "E",
+      "dependencies": ["HG-003"],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-006",
+      "title": "Add SECURITY.md and private disclosure instructions",
+      "phase": 0,
+      "owner": "C",
+      "dependencies": ["HG-003"],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-007",
+      "title": "Initialize pnpm workspace, strict TS base config",
+      "phase": 1,
+      "owner": "A",
+      "dependencies": ["HG-001", "HG-003"],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-008",
+      "title": "Add ESLint, Prettier, .editorconfig and scripts",
+      "phase": 1,
+      "owner": "A",
+      "dependencies": ["HG-007"],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-009",
+      "title": "Add test/coverage workflow with minimal permissions",
+      "phase": 1,
+      "owner": "F",
+      "dependencies": ["HG-007", "HG-008"],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-010",
+      "title": "Add issue, PR and bug reproduction templates",
+      "phase": 1,
+      "owner": "E",
+      "dependencies": ["HG-005", "HG-006"],
+      "branch": "phase-1/engineering-base",
+      "pr": 1,
+      "status": "completed",
+      "tests": [
+        "Engineering and documentation workflows passed on the reviewed head"
+      ],
+      "evidence": [
+        "f9c61727c0865793388a4ec107903b57711584bf",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+      ],
+      "completedAt": "2026-11-23T11:21:40Z"
+    },
+    {
+      "id": "HG-011",
+      "title": "Define ScenarioV1 Zod schema and JSON Schema export",
+      "phase": 2,
+      "owner": "A",
+      "dependencies": ["HG-007", "HG-008"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["e51266c"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-012",
+      "title": "Define RunResultV1 and version policy",
+      "phase": 2,
+      "owner": "A",
+      "dependencies": ["HG-011"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["e51266c"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-013",
+      "title": "Build strict YAML loader with clear errors",
+      "phase": 2,
+      "owner": "A",
+      "dependencies": ["HG-011"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["e51266c"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-014",
+      "title": "Implement config validation CLI subcommand",
+      "phase": 2,
+      "owner": "A",
+      "dependencies": ["HG-013"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["dc7bbd5"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-015",
+      "title": "Implement fixture path sandbox and size cap",
+      "phase": 2,
+      "owner": "C",
+      "dependencies": ["HG-011"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["e4415fd"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-016",
+      "title": "Build seedable PRNG and scheduling engine",
+      "phase": 2,
+      "owner": "B",
+      "dependencies": ["HG-007"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["9bfa62d"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-017",
+      "title": "Document CLI commands and exit codes",
+      "phase": 2,
+      "owner": "E",
+      "dependencies": ["HG-014"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["dc7bbd5"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-018",
+      "title": "Implement synthetic payment captured fixture",
+      "phase": 2,
+      "owner": "E",
+      "dependencies": ["HG-011", "HG-015"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["dc7bbd5"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-019",
+      "title": "Implement schema-negative test matrix",
+      "phase": 2,
+      "owner": "D",
+      "dependencies": ["HG-011", "HG-012", "HG-013"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["e51266c"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-020",
+      "title": "Create minimal examples/scenario-reference.md",
+      "phase": 2,
+      "owner": "E",
+      "dependencies": ["HG-014", "HG-017", "HG-018"],
+      "branch": "phase-2/contracts",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "182 Windows tests; strict typecheck, build, and compiled CLI validation passed"
+      ],
+      "evidence": ["dc7bbd5"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-021",
+      "title": "Implement local-target allowlist and URL normalization",
+      "phase": 3,
+      "owner": "C",
+      "dependencies": ["HG-011"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": ["f2aa61c"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-022",
+      "title": "Implement HTTP runner with timeout and abort",
+      "phase": 3,
+      "owner": "C",
+      "dependencies": ["HG-021"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": ["f2aa61c"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-023",
+      "title": "Implement bounded response and request limits",
+      "phase": 3,
+      "owner": "C",
+      "dependencies": ["HG-022"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": ["f2aa61c"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-024",
+      "title": "Implement duplicate scenario scheduler",
+      "phase": 3,
+      "owner": "B",
+      "dependencies": ["HG-016", "HG-018"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": ["6553366"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-025",
+      "title": "Implement out-of-order event permutation scheduler",
+      "phase": 3,
+      "owner": "B",
+      "dependencies": ["HG-016", "HG-024"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": ["6553366"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-026",
+      "title": "Implement 429/503 retry policies with jitter control",
+      "phase": 3,
+      "owner": "B",
+      "dependencies": ["HG-022", "HG-023"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": ["6553366"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-027",
+      "title": "Implement attempt trace and stable scenario hash",
+      "phase": 3,
+      "owner": "B",
+      "dependencies": ["HG-012", "HG-024", "HG-025", "HG-026"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": [
+        "packages/engine/test/run.test.ts",
+        "packages/cli/test/run.test.ts"
+      ],
+      "completedAt": null
+    },
+    {
+      "id": "HG-028",
+      "title": "Implement status/attempt-count assertions",
+      "phase": 3,
+      "owner": "B",
+      "dependencies": ["HG-027"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": [
+        "packages/engine/test/run.test.ts",
+        "packages/cli/test/run.test.ts"
+      ],
+      "completedAt": null
+    },
+    {
+      "id": "HG-029",
+      "title": "Implement read-only state_json assertion",
+      "phase": 3,
+      "owner": "C",
+      "dependencies": ["HG-021", "HG-022", "HG-023", "HG-028"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": [
+        "packages/engine/test/run.test.ts",
+        "packages/cli/test/run.test.ts"
+      ],
+      "completedAt": null
+    },
+    {
+      "id": "HG-030",
+      "title": "Create real Express demo consumer (faulty and fixed)",
+      "phase": 3,
+      "owner": "E",
+      "dependencies": ["HG-018", "HG-024"],
+      "branch": "phase-3/runner",
+      "pr": null,
+      "status": "review",
+      "tests": [
+        "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed"
+      ],
+      "evidence": ["785aa47"],
+      "completedAt": null
+    },
+    {
+      "id": "HG-031",
+      "title": "Implement JSON output with declared result schema",
+      "phase": 4,
+      "owner": "E",
+      "dependencies": ["HG-012", "HG-027", "HG-028", "HG-029"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-032",
+      "title": "Implement JUnit XML output and escaping",
+      "phase": 4,
+      "owner": "E",
+      "dependencies": ["HG-031"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-033",
+      "title": "Implement deterministic exit code mapping",
+      "phase": 4,
+      "owner": "A",
+      "dependencies": ["HG-014", "HG-021", "HG-028", "HG-031"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-034",
+      "title": "Implement configurable redaction by path",
+      "phase": 4,
+      "owner": "C",
+      "dependencies": ["HG-012", "HG-029", "HG-031"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-035",
+      "title": "Add HMAC signing negative and positive fixtures",
+      "phase": 4,
+      "owner": "C",
+      "dependencies": ["HG-023", "HG-030"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-036",
+      "title": "Add replay-window examples and tests",
+      "phase": 4,
+      "owner": "C",
+      "dependencies": ["HG-035"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-037",
+      "title": "Implement safe redirect denial",
+      "phase": 4,
+      "owner": "C",
+      "dependencies": ["HG-021", "HG-022", "HG-023"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-038",
+      "title": "Implement SSRF/DNS protection regression tests",
+      "phase": 4,
+      "owner": "D",
+      "dependencies": ["HG-021", "HG-037"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-039",
+      "title": "Add confidential secret and log review tests",
+      "phase": 4,
+      "owner": "D",
+      "dependencies": ["HG-031", "HG-034", "HG-035"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-040",
+      "title": "Document security model and false-positive limits",
+      "phase": 4,
+      "owner": "E",
+      "dependencies": [
+        "HG-015",
+        "HG-034",
+        "HG-036",
+        "HG-037",
+        "HG-038",
+        "HG-039"
+      ],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-041",
+      "title": "Create `hookguard init` guided local template",
+      "phase": 5,
+      "owner": "A",
+      "dependencies": ["HG-014", "HG-020", "HG-030"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-042",
+      "title": "Document Linux/macOS/Windows setup",
+      "phase": 5,
+      "owner": "E",
+      "dependencies": ["HG-033"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-043",
+      "title": "Add e2e tests to GitHub Actions",
+      "phase": 5,
+      "owner": "F",
+      "dependencies": [
+        "HG-030",
+        "HG-031",
+        "HG-032",
+        "HG-033",
+        "HG-036",
+        "HG-038"
+      ],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-044",
+      "title": "Add 1-minute quickstart walkthrough",
+      "phase": 5,
+      "owner": "E",
+      "dependencies": ["HG-041", "HG-042", "HG-043"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-045",
+      "title": "Add sample generated JSON/JUnit reports",
+      "phase": 5,
+      "owner": "E",
+      "dependencies": ["HG-030", "HG-031", "HG-032"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-046",
+      "title": "Audit dependency licenses and vulnerability notices",
+      "phase": 5,
+      "owner": "F",
+      "dependencies": ["HG-043"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-047",
+      "title": "Prepare changelog and semantic versioning policy",
+      "phase": 5,
+      "owner": "F",
+      "dependencies": ["HG-044", "HG-046"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-048",
+      "title": "Publish signed/tagged alpha after owner approval",
+      "phase": 5,
+      "owner": "F",
+      "dependencies": ["HG-043", "HG-044", "HG-046", "HG-047", "HG-049"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-049",
+      "title": "Prepare package metadata and package-name confirmation",
+      "phase": 5,
+      "owner": "F",
+      "dependencies": ["HG-001", "HG-003", "HG-046"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-050",
+      "title": "Build reusable GitHub Action only after CLI beta passes",
+      "phase": 5,
+      "owner": "F",
+      "dependencies": ["HG-043", "HG-048"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-051",
+      "title": "Add an example Fastify webhook consumer",
+      "phase": 6,
+      "owner": "E",
+      "dependencies": ["HG-030", "HG-035"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-052",
+      "title": "Add an example Hono webhook consumer",
+      "phase": 6,
+      "owner": "E",
+      "dependencies": ["HG-030", "HG-035"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-053",
+      "title": "Publish end-to-end idempotency regression example",
+      "phase": 6,
+      "owner": "E",
+      "dependencies": ["HG-043", "HG-044", "HG-048"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-054",
+      "title": "Add robust 429 Retry-After parsing coverage",
+      "phase": 6,
+      "owner": "B",
+      "dependencies": ["HG-026"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-055",
+      "title": "Add well-scoped webhook provider fixture guide",
+      "phase": 6,
+      "owner": "E",
+      "dependencies": ["HG-020", "HG-035", "HG-036"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-056",
+      "title": "Add optional HTML report (no new server)",
+      "phase": 6,
+      "owner": "E",
+      "dependencies": ["HG-031", "HG-034"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-057",
+      "title": "Validate on current supported Node LTS versions",
+      "phase": 6,
+      "owner": "D",
+      "dependencies": ["HG-042", "HG-043"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-058",
+      "title": "Triaging template for external bug reports",
+      "phase": 6,
+      "owner": "E",
+      "dependencies": ["HG-010", "HG-044"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-059",
+      "title": "Gather user feedback and plan v0.2 scope",
+      "phase": 6,
+      "owner": "E",
+      "dependencies": ["HG-048", "HG-053"],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "HG-060",
+      "title": "Publish first stable release only after user validation",
+      "phase": 6,
+      "owner": "F",
+      "dependencies": [
+        "HG-046",
+        "HG-047",
+        "HG-048",
+        "HG-053",
+        "HG-057",
+        "HG-059"
+      ],
+      "branch": null,
+      "pr": null,
+      "status": "pending",
+      "tests": [],
+      "evidence": [],
+      "completedAt": null
+    }
+  ]
+}

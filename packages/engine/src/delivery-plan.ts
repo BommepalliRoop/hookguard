@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer';
 import { TextDecoder } from 'node:util';
-import { schedule, shuffle, type ScheduledStep } from './index.js';
+import { schedule, shuffle, type ScheduledStep } from './primitives.js';
 
 const maxDeliveries = 100;
 const jsonPathPattern = /^\$(?:\.[A-Za-z0-9_-]+|\[(?:0|[1-9][0-9]*)\])*$/u;
