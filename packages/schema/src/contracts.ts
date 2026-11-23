@@ -69,15 +69,16 @@ export const scenarioSchema = z.strictObject({
       .strictObject({
         maxAttempts: z.int().min(1).max(10),
         backoffMs: z.int().min(0).max(60_000),
+        jitterMs: z.int().min(0).max(5_000).optional(),
         statuses: z.array(httpStatus),
       })
       .optional(),
     fail: z.enum(['none', 'timeout', 'http_429', 'http_503']).optional(),
   }),
-  assertions: z.array(assertionSchema).min(1),
+  assertions: z.array(assertionSchema).min(1).max(32),
   security: z.strictObject({
-    allowTargets: z.array(httpUrl),
-    redactPaths: z.array(jsonPath),
+    allowTargets: z.array(httpUrl).max(32),
+    redactPaths: z.array(jsonPath).max(64),
   }),
 });
 

@@ -1,7 +1,7 @@
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { checkCli } from './cli-smoke.mjs';
 
 function fixture(
@@ -31,35 +31,37 @@ function fixture(
   return executable;
 }
 
-test('accepts an executable that implements the expected CLI contract', ({
-  onTestFinished,
-}) => {
-  expect(() => checkCli(fixture(onTestFinished), '1.2.3')).not.toThrow();
-});
+describe('built CLI contract', { timeout: 30_000 }, () => {
+  it('accepts an executable that implements the expected CLI contract', ({
+    onTestFinished,
+  }) => {
+    expect(() => checkCli(fixture(onTestFinished), '1.2.3')).not.toThrow();
+  });
 
-test('rejects an executable that reports a stale version', ({
-  onTestFinished,
-}) => {
-  const executable = fixture(onTestFinished, { version: '1.2.2' });
-  expect(() => checkCli(executable, '1.2.3')).toThrow(
-    '--version: expected the package version',
-  );
-});
+  it('rejects an executable that reports a stale version', ({
+    onTestFinished,
+  }) => {
+    const executable = fixture(onTestFinished, { version: '1.2.2' });
+    expect(() => checkCli(executable, '1.2.3')).toThrow(
+      '--version: expected the package version',
+    );
+  });
 
-test('rejects an executable that returns success for an unknown option', ({
-  onTestFinished,
-}) => {
-  const executable = fixture(onTestFinished, { rejectionStatus: 0 });
-  expect(() => checkCli(executable, '1.2.3')).toThrow(
-    'expected exit 2, received 0',
-  );
-});
+  it('rejects an executable that returns success for an unknown option', ({
+    onTestFinished,
+  }) => {
+    const executable = fixture(onTestFinished, { rejectionStatus: 0 });
+    expect(() => checkCli(executable, '1.2.3')).toThrow(
+      'expected exit 2, received 0',
+    );
+  });
 
-test('rejects an unknown-option diagnostic written to stdout', ({
-  onTestFinished,
-}) => {
-  const executable = fixture(onTestFinished, { errorStream: 'stdout' });
-  expect(() => checkCli(executable, '1.2.3')).toThrow(
-    'expected an unknown-option diagnostic on stderr',
-  );
+  it('rejects an unknown-option diagnostic written to stdout', ({
+    onTestFinished,
+  }) => {
+    const executable = fixture(onTestFinished, { errorStream: 'stdout' });
+    expect(() => checkCli(executable, '1.2.3')).toThrow(
+      'expected an unknown-option diagnostic on stderr',
+    );
+  });
 });

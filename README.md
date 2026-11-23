@@ -4,7 +4,7 @@
 
 HookGuard is a planned TypeScript CLI for testing webhook receivers against realistic failure scenarios: duplicate delivery, retries, reordered events, invalid signatures, idempotency, timeout handling, and CI regression checks.
 
-> **Status (2026-11-23):** The CLI validates version 1 scenario YAML and local fixtures. See the implementation tracker for current delivery and reporting milestones.
+> **Status (2026-11-23):** The CLI validates scenarios and delivers synthetic events to explicit loopback targets. The Express demo shows how a state assertion detects duplicate side effects.
 
 ## What we'll build
 
@@ -38,6 +38,14 @@ node packages/cli/dist/index.js validate --config examples/scenarios/duplicate.y
 ```
 
 See the [scenario reference](docs/scenario-reference.md) for supported fields and [Contributing](CONTRIBUTING.md) for development checks.
+
+Run the [Express demo](examples/express-consumer/README.md) on port 3000, then run the duplicate scenario from the checkout:
+
+```sh
+node packages/cli/dist/index.js run --config examples/scenarios/duplicate.yaml --target http://127.0.0.1:3000
+```
+
+The buggy receiver applies three credits and the CLI exits 1. The fixed receiver applies one credit and the CLI exits 0.
 
 ## Open-source participation
 

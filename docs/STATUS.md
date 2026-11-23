@@ -13,8 +13,9 @@ Last reviewed: 2026-11-23
 | Engineering workspace and CLI entry point | Verified locally and in CI | [Workspace scripts](../package.json) and [CLI tests](../packages/cli/test/program.test.ts) |
 | Build, formatting, lint, type check, and coverage CI | Passed on Node.js 22, 24, and 26 | [Engineering workflow run](https://github.com/BommepalliRoop/hookguard/actions/runs/45122228073) |
 | CLI scenario validation and schema | Verified locally | [Scenario reference](scenario-reference.md), [schema package](../packages/schema/package.json), and [CLI tests](../packages/cli/test/program.test.ts) |
-| Duplicate/retry/signature simulation | Not implemented | Planned HG-021–040 |
-| Webhook delivery test suite and example receiver | Not implemented | Planned engineering backlog |
+| Duplicate, ordering, and retry simulation | Verified locally | [Runner tests](../packages/engine/test/run.test.ts) and [scenario reference](scenario-reference.md) |
+| Webhook delivery test suite and example receiver | Verified locally | [Express demo](../examples/express-consumer/README.md) and [CLI integration tests](../packages/cli/test/run.test.ts) |
+| Signature scenarios and report serialization | Planned | HG-031–040 |
 | npm release | Not published | Owner approval and verified tests required |
 | Community adoption | Not established | Genuine users and real integrations required |
 
@@ -38,4 +39,4 @@ The repository owner confirmed the right to license HookGuard's new code under M
 
 ## Next technical milestone
 
-Implement the local HTTP delivery engine and verify the duplicate scenario against deliberately faulty and fixed consumers.
+Implement JSON and JUnit output, redaction, signature verification, and replay-window tests.
