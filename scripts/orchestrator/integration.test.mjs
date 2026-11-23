@@ -22,7 +22,9 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
     appendFileSync(ledger, JSON.stringify({ id: task.id, workerId, attempt, model, pid, cwd: cwd() }) + '\\n');
     const marker = new URL('./prepare-ready', import.meta.url);
     if (task.id === 'prepare' && attempt === 1) exit(75);
-    if (task.id === 'verify' && !existsSync(marker)) throw new Error('prepare had not finished');
+    if (task.id === 'verify' && (!existsSync(marker) || !existsSync('src/prepare.mjs'))) {
+      throw new Error('The prepared dependency is missing after its required check');
+    }
 
     writeFileSync(task.paths[0], 'export const value = 42;\\n');
     let check =
@@ -45,9 +47,9 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
     .split(/\r?\n/u)
     .map((line) => JSON.parse(line));
   expect(invocations).toMatchObject([
-    { id: 'prepare', attempt: 1, model: 'gpt-6.2-sol' },
-    { id: 'prepare', attempt: 2, model: 'gpt-6.2-sol' },
-    { id: 'verify', attempt: 1, model: 'gpt-6.2-astra' },
+    { id: 'prepare', attempt: 1, model: 'offline' },
+    { id: 'prepare', attempt: 2, model: 'offline' },
+    { id: 'verify', attempt: 1, model: 'offline' },
   ]);
   for (const { cwd, pid, workerId } of invocations) {
     expect(cwd).not.toBe(fixture.repository);
@@ -55,9 +57,12 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
     expect(['worker-a', 'worker-b']).toContain(workerId);
   }
 
-  const resultCommits = fixture.resultCommits();
-  expect(resultCommits).toHaveLength(2);
-  const changedFiles = resultCommits.flatMap((commit) =>
+  const checkpoint = fixture.readState();
+  const taskCommits = Object.values(checkpoint.tasks).map(
+    (task) => task.result.commit,
+  );
+  expect(new Set(taskCommits).size).toBe(2);
+  const changedFiles = taskCommits.flatMap((commit) =>
     fixture
       .git('diff-tree', '--no-commit-id', '--name-only', '-r', commit)
       .split(/\r?\n/u),
@@ -71,7 +76,6 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
   expect(fixture.git('rev-parse', 'HEAD')).toBe(initialCommit);
   expect(fixture.git('status', '--porcelain')).toBe('');
 
-  const checkpoint = fixture.readState();
   for (const invocation of invocations) {
     const task = checkpoint.tasks[invocation.id];
     expect(task.status).toBe('completed');
@@ -82,13 +86,15 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
       model: invocation.model,
       pid: invocation.pid,
     });
-    expect(resultCommits).toContain(task.result.commit);
   }
   for (const [id, task] of Object.entries(checkpoint.tasks)) {
-    expect(task.attempts.at(-1).checks).toMatchObject([
+    const attempt = task.attempts.at(-1);
+    expect(fixture.git('rev-parse', attempt.branch)).toBe(task.result.commit);
+    expect(attempt.checks).toMatchObject([
       { command: 'node', args: ['--test', `src/${id}.test.mjs`], exitCode: 0 },
     ]);
   }
+  const resultCommits = fixture.resultCommits();
   const resumedRun = fixture.run();
   expect(resumedRun.status, resumedRun.output).toBe(0);
   expect(readFileSync(ledger, 'utf8')).toBe(ledgerBeforeResume);
