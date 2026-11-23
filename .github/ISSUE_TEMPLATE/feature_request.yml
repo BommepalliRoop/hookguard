@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest a webhook reliability use case
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Underlying user problem
+      description: Describe a concrete webhook reliability failure or testing gap.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed behavior
+      description: Include an example scenario or acceptance test if possible.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
