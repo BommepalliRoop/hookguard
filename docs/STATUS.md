@@ -9,9 +9,9 @@ Last reviewed: 2026-11-23
 | Open-source MIT license | Published | [LICENSE](../LICENSE) |
 | Code of conduct and contribution policy | Published | [CONTRIBUTING](../CONTRIBUTING.md) |
 | Issue and PR templates | Published | [.github templates](../.github/ISSUE_TEMPLATE/bug_report.yml) |
-| Documentation checks | Configured | [docs.yml](../.github/workflows/docs.yml); execution result not yet verified |
-| Engineering workspace and CLI entry point | Available locally | [Workspace scripts](../package.json) and [CLI tests](../packages/cli/test/program.test.ts) |
-| Build, lint, type check, and coverage CI | Configured | [ci.yml](../.github/workflows/ci.yml); GitHub Actions result pending |
+| Documentation checks | Passed in CI | [Documentation workflow run](https://github.com/BommepalliRoop/hookguard/actions/runs/45122227953) |
+| Engineering workspace and CLI entry point | Verified locally and in CI | [Workspace scripts](../package.json) and [CLI tests](../packages/cli/test/program.test.ts) |
+| Build, formatting, lint, type check, and coverage CI | Passed on Node.js 22, 24, and 26 | [Engineering workflow run](https://github.com/BommepalliRoop/hookguard/actions/runs/45122228073) |
 | CLI scenario validation and schema | Not implemented | Planned HG-011–020 |
 | Duplicate/retry/signature simulation | Not implemented | Planned HG-021–040 |
 | Webhook delivery test suite and example receiver | Not implemented | Planned engineering backlog |
@@ -19,6 +19,8 @@ Last reviewed: 2026-11-23
 | Community adoption | Not established | Genuine users and real integrations required |
 
 **Milestone checkboxes are planning tasks, not verified completion.** Only mark a task done after checking code, tests and CI evidence.
+
+Phase 0 (HG-001–006) and Phase 1 (HG-007–010) were verified in [the engineering base pull request](https://github.com/BommepalliRoop/hookguard/pull/1).
 
 ## Model routing
 
