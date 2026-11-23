@@ -40,4 +40,21 @@ describe('hookguard CLI', () => {
     expect(writeErr).toHaveBeenCalledWith(expect.stringContaining(message));
     expect(writeOut).not.toHaveBeenCalled();
   });
+  it.each([
+    ['--bad\x1b[31m', '--bad\\u001b[31m'],
+    ['--bad\nforged', '--bad\\u000aforged'],
+    ['--bad\x9b2J', '--bad\\u009b2J'],
+  ])('escapes terminal controls in usage diagnostics', (arg, escaped) => {
+    const writeOut = vi.fn();
+    const writeErr = vi.fn();
+    expect(runCli([arg], { writeOut, writeErr })).toBe(2);
+    expect(writeErr).toHaveBeenCalledWith(
+      `error: unknown option '${escaped}'\n`,
+    );
+    expect(writeErr.mock.calls.flat().join('')).not.toContain(arg);
+    expect(writeErr).toHaveBeenCalledWith(
+      expect.stringContaining('Usage: hookguard'),
+    );
+    expect(writeOut).not.toHaveBeenCalled();
+  });
 });

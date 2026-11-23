@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "workers": ["worker-1", "worker-2", "worker-3", "worker-4"],
+  "limits": {
+    "timeoutMs": 600000,
+    "maxOutputBytes": 2097152,
+    "maxAttempts": 2,
+    "retryBaseMs": 5000
+  },
+  "models": {
+    "routine": ["gpt-6.2-sol", "gpt-6.1-sol", "gpt-6-sol"],
+    "review": ["gpt-6.2-astra", "gpt-6-astra", "gpt-6.2-sol"]
+  },
+  "tasks": [
+    {
+      "id": "hg-007-workspace-check",
+      "phase": 1,
+      "dependsOn": [],
+      "paths": [
+        "scripts/phase1/check-workspace.mjs",
+        "scripts/phase1/check-workspace.test.mjs"
+      ],
+      "role": "routine",
+      "prompt": "Add a small dependency-free Node script that validates each packages/* package is private and has a tsconfig.build.json extending the root strict configuration. Expose its checker for unit tests and make it executable via node scripts/phase1/check-workspace.mjs without changing the package scripts. Provide passing and failing fixtures and a clear exit status. This is an additive HG-007 guard on top of the Phase 1 draft.",
+      "checks": [
+        { "command": "node", "args": ["scripts/phase1/check-workspace.mjs"] },
+        {
+          "command": "pnpm",
+          "args": [
+            "exec",
+            "vitest",
+            "run",
+            "scripts/phase1/check-workspace.test.mjs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hg-008-cli-diagnostics",
+      "phase": 1,
+      "dependsOn": [],
+      "paths": [
+        "packages/cli/src/program.ts",
+        "packages/cli/test/program.test.ts"
+      ],
+      "role": "review",
+      "prompt": "Review Commander usage errors for raw control characters in untrusted argv. Preserve usage error semantics and normal help/version output, and escape user-supplied terminal control characters in usage diagnostics. Add regression assertions using the existing injectable writer, including an escape character and a newline in an invalid argument. Update only the assigned files and use Prettier.",
+      "checks": [
+        {
+          "command": "pnpm",
+          "args": ["exec", "vitest", "run", "packages/cli/test/program.test.ts"]
+        },
+        { "command": "pnpm", "args": ["typecheck"] }
+      ]
+    },
+    {
+      "id": "hg-009-ci-smoke",
+      "phase": 1,
+      "dependsOn": [],
+      "paths": [
+        ".github/workflows/ci.yml",
+        "scripts/phase1/cli-smoke.mjs",
+        "scripts/phase1/cli-smoke.test.mjs"
+      ],
+      "role": "routine",
+      "prompt": "Replace CI's help-only invocation with a cross-platform Node smoke check of the actual built CLI for help, version and rejected usage. Keep the workflow permission budget unchanged. Put the implementation and tests in the specified paths and use only standard Node libraries. Include a negative test using a synthetic CLI executable. Format all changed files.",
+      "checks": [
+        { "command": "pnpm", "args": ["build"] },
+        { "command": "node", "args": ["scripts/phase1/cli-smoke.mjs"] },
+        {
+          "command": "pnpm",
+          "args": ["exec", "vitest", "run", "scripts/phase1/cli-smoke.test.mjs"]
+        }
+      ]
+    },
+    {
+      "id": "hg-010-review-evidence",
+      "phase": 1,
+      "dependsOn": [],
+      "paths": [
+        "scripts/phase1/review-evidence.mjs",
+        "scripts/phase1/review-evidence.test.mjs"
+      ],
+      "role": "routine",
+      "prompt": "Add a small dependency-free Node CLI that takes a local orchestrator state.json and renders a PR draft verification summary to stdout. Include the tested base SHA, each task status, any result commit SHA, and actual check command names, exit codes and durations when present. Refuse missing or malformed state. Omit absolute paths, worker prompts and transcripts to keep review evidence shareable. Include positive and negative Vitest coverage and format the changed files.",
+      "checks": [
+        {
+          "command": "pnpm",
+          "args": [
+            "exec",
+            "vitest",
+            "run",
+            "scripts/phase1/review-evidence.test.mjs"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+# Local development orchestrator
+
+The orchestrator is a foreground maintenance tool for HookGuard contributors. It uses the current Git commit as a fixed base and keeps work in local branches. It needs Node.js, Git, and the workspace's pinned pnpm. Model-backed runs also need a local Codex CLI with ChatGPT sign-in.
+
+## Phase 1
+
+The [execution gates](plan/14_EXECUTION_PHASES_AND_GATES.md) place the TypeScript workspace, engineering checks, and community templates in Phase 1. Those foundations are in [draft PR #1](https://github.com/BommepalliRoop/hookguard/pull/1). The [Phase 1 manifest](../orchestrator/phase-1.json) schedules four follow-up tasks against that foundation. Each owns a separate set of files and has an independent check command. The full [60-task backlog](plan/04_PROJECT_DELIVERY_BACKLOG.md) remains the source for subsequent manifests.
+
+```mermaid
+flowchart LR
+    Config[Task manifest] --> Queue[Phase and dependency queue]
+    State[Local state.json] <--> Queue
+    Queue --> A[Worker 1 worktree]
+    Queue --> B[Worker 2 worktree]
+    Queue --> C[Worker 3 worktree]
+    Queue --> D[Worker 4 worktree]
+    A & B & C & D --> Trust{Worker type}
+    Trust -->|Native model| Inspect[Stop for human review of candidate]
+    Inspect --> Replay[Replay reviewed changes with a trusted offline worker]
+    Replay --> Check[Required checks and Git scope verification]
+    Trust -->|Trusted offline| Check
+    Check --> State
+    State --> Review[Local review candidate]
+    Review --> CI[Draft PR and GitHub Actions]
+    CI --> Owner[Repository owner decides whether to merge]
+```
+
+## Run or resume
+
+From the repository root, install the lockfile and start the controller in a terminal. Use a dedicated state directory outside the checkout, on the same host. The confirmation flag is for a ChatGPT account with zero purchased credits and automatic reload disabled. Check the account settings before passing it. The controller verifies ChatGPT sign-in, strips API-key environment variables, and selects the first available configured model for each role.
+
+```powershell
+pnpm install --frozen-lockfile
+$runPath = Join-Path (Split-Path (Get-Location).Path -Parent) 'HookGuard-phase1-run'
+pnpm run orchestrate run --state-dir $runPath --confirm-no-paid-usage
+pnpm run orchestrate status --state-dir $runPath
+```
+
+The controller emits JSON lines. A `worker_started` event includes the process ID, model, owner, worktree, and branch. The state file records the base SHA, configuration digest, task state, current owner, attempts, actual command exit codes and durations, and verified result commits.
+
+A successful native model invocation leaves its changes in the attempt directory recorded in the checkpoint. The controller reports `candidate_review_required` and exits unsuccessfully. Dependent tasks remain blocked. Inspect all candidate changes, including untracked files, before running any candidate code. To continue, use a trusted offline worker that applies only the exact changes you reviewed to a fresh worktree at the same base. Keep the approved inputs outside the model worktrees. Use a fresh state directory for the replay. Checkpoints from earlier versions that completed native model tasks also require this review and replay before further execution.
+
+Once the trusted replay completes, use `pnpm run orchestrate review --state-dir <replay-directory>` to run lint, formatting, type checks, build, and the coverage suite. Each invocation creates a fresh candidate worktree and branch, preserving earlier candidates for diagnosis. The GitHub workflow runs those checks on a draft PR alongside the offline integration and security tests.
+
+Use `--codex-bin` on `run` to select a standalone Codex executable. Native Windows runs can also select an available sandbox implementation with `--windows-sandbox elevated` or `--windows-sandbox unelevated`. The workspace-write policy applies in both cases. [Codex configuration basics](https://learn.chatgpt.com/docs/config-file/config-basic)
+
+For environments without model-backed shell access, `--offline-worker FILE` runs a trusted local Node module in each attempt's worktree. It reads a JSON object with `task`, `workerId`, `attempt`, and `model` from standard input. It exits 0 when its edits are ready, 75 for a transient failure, or another nonzero code for a permanent failure. The same file-scope and verification gates apply. Warm the pnpm cache before running tasks in a pnpm repository.
+
+Use the same manifest and state directory to resume. Completed tasks retain their commits. A stale lock or interrupted running task requires `--recover` after checking that its processes have exited. An active owner or different host prevents recovery. Each attempt gets a fresh worktree. Failed worktrees are retained for diagnosis. Create a new state directory to run a revised manifest. Use `--record-transcripts` only if needed for local diagnosis and keep those files private.
+
+## Scheduling and boundaries
+
+- Tasks have IDs, phases, prerequisite IDs, repository-relative file scopes, a model role, a prompt, and required checks. The controller dispatches only tasks in the earliest unfinished phase whose prerequisites succeeded. Overlapping path scopes never run concurrently. Declare dependencies for tasks that intentionally change the same files.
+- Slots have one owner at a time. Four is the maximum. Each model process and check has a wall-clock and output limit. Transient failures have bounded retries and backoff. Usage-limit, invalid work, and failed verification are surfaced in the checkpoint.
+- For trusted offline workers the controller checks changes before and after running verification. It requires an implementation or configuration change and an automated test change, rejects out-of-scope paths and unsupported Git file types, and commits verified changes on the attempt branch. Resume requires a completion record with a full Git commit ID and successful results for the manifest's checks.
+- Git worktrees isolate edits and history. Codex subprocesses request workspace-write mode with approval and network access disabled for model shell commands. The controller can install frozen offline dependencies from a trusted base before invoking the worker. Checks for trusted offline workers execute using the host user's permissions. Fully automatic execution of unreviewed model-generated checks would require equivalent OS-level filesystem, credential, and network isolation. CI uses local test subprocesses without model login.
+- The terminal and host must stay active. Sleep pauses local progress, and a crash may require recovery. The controller prepares local branches and a candidate for review. Remote pushes and draft PR creation are owner-authorized steps, and merging requires a separate owner decision.
