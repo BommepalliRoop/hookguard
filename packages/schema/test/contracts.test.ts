@@ -47,7 +47,9 @@ describe('ScenarioV1', () => {
     'duplicate',
     'out_of_order',
     'retry',
+    'signed_payload',
     'bad_signature',
+    'stale_signature',
     'invalid_payload',
   ])('accepts %s and preserves omitted defaults', (kind) => {
     const parsed = scenarioSchema.parse({ ...scenario, scenario: kind });

@@ -14,9 +14,11 @@
     "start": "node dist/start.js"
   },
   "dependencies": {
+    "@hookguard/engine": "workspace:*",
     "express": "5.3.0"
   },
   "devDependencies": {
+    "@hookguard/schema": "workspace:*",
     "@types/express": "5.0.6"
   }
 }

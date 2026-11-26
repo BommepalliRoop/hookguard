@@ -24,7 +24,10 @@ function start(): void {
     Number.MAX_SAFE_INTEGER,
   );
   const host = '127.0.0.1';
-  const server = createServer(createExpressConsumer({ mode, failFirst }));
+  const signingSecret = process.env.HOOKGUARD_SIGNING_SECRET;
+  const server = createServer(
+    createExpressConsumer({ mode, failFirst, signingSecret }),
+  );
   server.once('error', (error) => {
     process.stderr.write(
       'Could not start demo consumer. ' + error.message + '\n',

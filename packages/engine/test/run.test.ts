@@ -246,6 +246,37 @@ describe('local scenario execution', () => {
     expect(paths).toEqual(['/']);
   });
 
+  it('denies state probe redirects before any follow-up request', async () => {
+    const visits: string[] = [];
+    await serve(
+      (request, response) => {
+        visits.push(request.method + ' ' + request.url);
+        if (request.method === 'GET') {
+          response.writeHead(302, { location: '/never-visited' }).end();
+        } else {
+          response.writeHead(200).end();
+        }
+      },
+      async (origin) => {
+        const configuration = scenario(origin, {
+          execution: { timeoutMs: 1000, count: 1 },
+          assertions: [
+            {
+              kind: 'state_json',
+              url: origin + '/state',
+              jsonPath: '$',
+              equals: null,
+            },
+          ],
+        });
+        await expect(
+          runScenario(configuration, fixture, origin),
+        ).rejects.toBeInstanceOf(TargetPolicyError);
+      },
+    );
+    expect(visits).toEqual(['POST /', 'GET /state']);
+  });
+
   it('hashes a scenario independent of object key order and includes fixture bytes', () => {
     const configuration = scenario('http://127.0.0.1:3000');
     const shuffledKeys = {

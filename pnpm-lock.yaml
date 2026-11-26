@@ -35,10 +35,16 @@ importers:
 
   examples/express-consumer:
     dependencies:
+      '@hookguard/engine':
+        specifier: workspace:*
+        version: link:../../packages/engine
       express:
         specifier: 5.3.0
         version: 5.3.0
     devDependencies:
+      '@hookguard/schema':
+        specifier: workspace:*
+        version: link:../../packages/schema
       '@types/express':
         specifier: 5.0.6
         version: 5.0.6
