@@ -20,5 +20,11 @@
   "devDependencies": {
     "@hookguard/schema": "workspace:*",
     "@types/express": "5.0.6"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BommepalliRoop/hookguard.git",
+    "directory": "examples/express-consumer"
   }
 }

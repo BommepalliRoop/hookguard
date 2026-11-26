@@ -14,5 +14,11 @@
   },
   "dependencies": {
     "@hookguard/schema": "workspace:*"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BommepalliRoop/hookguard.git",
+    "directory": "packages/engine"
   }
 }
