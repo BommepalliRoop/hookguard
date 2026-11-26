@@ -141,6 +141,15 @@ export async function sendRequest(
             req.destroy();
           };
           res.on('error', reject);
+          if (
+            res.statusCode !== undefined &&
+            res.statusCode >= 300 &&
+            res.statusCode < 400
+          ) {
+            reject(new TargetPolicyError('Redirect responses are prohibited.'));
+            req.destroy();
+            return;
+          }
           const declaredLength = Number(res.headers['content-length']);
           if (declaredLength > maxBytes) {
             rejectOversize();
@@ -177,7 +186,8 @@ export async function sendRequest(
       req.end(options.body);
     });
   } catch (cause) {
-    if (cause instanceof TransportError) throw cause;
+    if (cause instanceof TransportError || cause instanceof TargetPolicyError)
+      throw cause;
     throw new TransportError(signal.aborted ? 'timeout' : 'network_error');
   }
 }

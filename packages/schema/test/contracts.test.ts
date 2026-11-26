@@ -47,7 +47,9 @@ describe('ScenarioV1', () => {
     'duplicate',
     'out_of_order',
     'retry',
+    'signed_payload',
     'bad_signature',
+    'stale_signature',
     'invalid_payload',
   ])('accepts %s and preserves omitted defaults', (kind) => {
     const parsed = scenarioSchema.parse({ ...scenario, scenario: kind });
@@ -299,6 +301,7 @@ describe('RunResultV1', () => {
     ['invalid scenario hash', { scenarioHash: 'x'.repeat(64) }],
     ['missing scenario hash', { scenarioHash: undefined }],
     ['invalid engine version', { engineVersion: 'latest' }],
+    ['invalid prerelease version', { engineVersion: '0.1.0-alpha.01' }],
     ['missing seed', { seed: undefined }],
     ['invalid timestamp', { startedAt: '2026-11-23' }],
     [

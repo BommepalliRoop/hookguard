@@ -12,3 +12,4 @@ export {
 export { retryDelayMs } from './retry.js';
 export { runScenario, scenarioHash } from './run.js';
 export { TargetPolicyError, TransportError } from './transport.js';
+export { signWebhook, verifyWebhook } from './signature.js';

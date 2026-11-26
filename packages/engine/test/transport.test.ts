@@ -78,6 +78,27 @@ describe('loopback target policy', () => {
 });
 
 describe('bounded loopback HTTP', () => {
+  it('uses the IPv4 loopback literal for localhost requests', async () => {
+    let host: string | undefined;
+    const { origin } = await listen((request, response) => {
+      host = request.headers.host;
+      response.end();
+    });
+    const localhost = origin.replace('127.0.0.1', 'localhost');
+    const policy = createTargetPolicy([localhost]);
+    await expect(sendRequest(policy, localhost, get)).resolves.toMatchObject({
+      status: 200,
+    });
+    expect(host).toBe(new URL(origin).host);
+  });
+
+  it('rechecks that a custom policy output is loopback before attempting networking', async () => {
+    const policy = { resolve: () => new URL('http://example.invalid') };
+    await expect(
+      sendRequest(policy, 'http://localhost', get),
+    ).rejects.toBeInstanceOf(TargetPolicyError);
+  });
+
   it('preserves the bytes of a POST up to the exact cap, status, and safe Retry-After', async () => {
     const bytes = Buffer.alloc(1024 * 1024, 0xff);
     const { origin, policy } = await listen((req, res) => {
@@ -166,7 +187,7 @@ describe('bounded loopback HTTP', () => {
     });
   });
 
-  it('returns redirect status without following Location or exposing an arbitrary header value', async () => {
+  it('rejects redirects at the headers without waiting for the body or following Location', async () => {
     const paths: string[] = [];
     const { origin, policy } = await listen((req, res) => {
       paths.push(req.url ?? '');
@@ -175,10 +196,14 @@ describe('bounded loopback HTTP', () => {
           Location: '/second',
           'Retry-After': 'synthetic private value',
         })
-        .end();
+        .flushHeaders();
     });
-    const result = await sendRequest(policy, origin + '/first', get);
+    await expect(
+      sendRequest(policy, origin + '/first', get),
+    ).rejects.toMatchObject({
+      name: 'TargetPolicyError',
+      message: 'Redirect responses are prohibited.',
+    });
     expect(paths).toEqual(['/first']);
-    expect(result).toEqual({ status: 302, body: Buffer.alloc(0) });
   });
 });

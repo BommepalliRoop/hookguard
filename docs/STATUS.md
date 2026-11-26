@@ -1,6 +1,6 @@
 # HookGuard implementation status
 
-Last reviewed: 2026-11-23
+Last reviewed: 2026-11-26
 
 | Item | State | Evidence |
 |---|---|---|
@@ -15,7 +15,7 @@ Last reviewed: 2026-11-23
 | CLI scenario validation and schema | Verified locally | [Scenario reference](scenario-reference.md), [schema package](../packages/schema/package.json), and [CLI tests](../packages/cli/test/program.test.ts) |
 | Duplicate, ordering, and retry simulation | Verified locally | [Runner tests](../packages/engine/test/run.test.ts) and [scenario reference](scenario-reference.md) |
 | Webhook delivery test suite and example receiver | Verified locally | [Express demo](../examples/express-consumer/README.md) and [CLI integration tests](../packages/cli/test/run.test.ts) |
-| Signature scenarios and report serialization | Planned | HG-031–040 |
+| Signature scenarios and report serialization | Verified locally | [Security model](security-model.md) and [test evidence](TEST_EVIDENCE.md) |
 | npm release | Not published | Owner approval and verified tests required |
 | Community adoption | Not established | Genuine users and real integrations required |
 
@@ -39,4 +39,4 @@ The repository owner confirmed the right to license HookGuard's new code under M
 
 ## Next technical milestone
 
-Implement JSON and JUnit output, redaction, signature verification, and replay-window tests.
+Verify the clean-checkout quickstart and prepare reproducible package artifacts.

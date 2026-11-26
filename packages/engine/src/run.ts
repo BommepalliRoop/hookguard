@@ -10,10 +10,10 @@ import {
 } from './delivery-plan.js';
 import { createPrng } from './primitives.js';
 import { retryDelayMs } from './retry.js';
+import { signWebhook } from './signature.js';
 import {
   createTargetPolicy,
   sendRequest,
-  TargetPolicyError,
   TransportError,
   type TargetPolicy,
 } from './transport.js';
@@ -49,10 +49,12 @@ export function scenarioHash(scenario: ScenarioV1, fixture: Buffer): string {
     .digest('hex');
 }
 
-function denyRedirect(status: number) {
-  if (status >= 300 && status < 400) {
-    throw new TargetPolicyError('Redirect responses are prohibited.');
-  }
+function isPathWithin(path: string, parent: string): boolean {
+  return (
+    path === parent ||
+    path.startsWith(parent + '.') ||
+    path.startsWith(parent + '[')
+  );
 }
 
 async function evaluateAssertions(
@@ -94,7 +96,6 @@ async function evaluateAssertions(
             method: 'GET',
             timeoutMs: scenario.execution.timeoutMs,
           });
-          denyRedirect(response.status);
           if (response.status >= 200 && response.status < 300) {
             json = JSON.parse(response.body.toString('utf8'));
           }
@@ -113,7 +114,11 @@ async function evaluateAssertions(
         typeof actual === 'number' &&
         Number.isFinite(actual) &&
         typeof assertion.equals === 'number' &&
-        scenario.security.redactPaths.length === 0;
+        !scenario.security.redactPaths.some(
+          (path) =>
+            isPathWithin(assertion.jsonPath, path) ||
+            isPathWithin(path, assertion.jsonPath),
+        );
       results.push({
         kind: assertion.kind,
         passed,
@@ -132,15 +137,21 @@ export async function runScenario(
   scenario: ScenarioV1,
   fixture: Buffer,
   target: string,
+  { signingSecret }: { signingSecret?: string | undefined } = {},
 ): Promise<RunResultV1> {
   const policy = createTargetPolicy(scenario.security.allowTargets);
   const destination = policy.resolve(target).href;
   for (const assertion of scenario.assertions) {
     if (assertion.kind === 'state_json') policy.resolve(assertion.url);
   }
-  if (scenario.scenario === 'bad_signature') {
+  const { scenario: kind } = scenario;
+  const requiresSignature =
+    kind === 'signed_payload' ||
+    kind === 'bad_signature' ||
+    kind === 'stale_signature';
+  if (requiresSignature && !signingSecret?.trim()) {
     throw new DeliveryPlanError(
-      'Signature scenarios require signature verification support.',
+      'Signature scenarios require HOOKGUARD_SIGNING_SECRET.',
     );
   }
 
@@ -172,13 +183,27 @@ export async function runScenario(
         }
       } else {
         try {
+          const headers: Record<string, string> = {
+            'content-type': 'application/json',
+          };
+          if (requiresSignature && signingSecret !== undefined) {
+            const timestamp =
+              Math.floor(Date.now() / 1000) -
+              (kind === 'stale_signature' ? 600 : 0);
+            let signature = signWebhook(event, signingSecret, timestamp);
+            if (kind === 'bad_signature') {
+              const last = signature.endsWith('0') ? '1' : '0';
+              signature = signature.slice(0, -1) + last;
+            }
+            headers['x-hookguard-timestamp'] = String(timestamp);
+            headers['x-hookguard-signature'] = signature;
+          }
           const response = await sendRequest(policy, destination, {
             method: 'POST',
             timeoutMs: scenario.execution.timeoutMs,
-            headers: { 'content-type': 'application/json' },
+            headers,
             body: event,
           });
-          denyRedirect(response.status);
           attempt.status = response.status;
           retryAfter = response.retryAfter;
         } catch (error) {

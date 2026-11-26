@@ -1,0 +1,15 @@
+version: 1
+name: payment-captured-bad-signature
+scenario: bad_signature
+fixture:
+  path: ./fixtures/payment-captured.json
+  eventIdPath: $.id
+execution:
+  timeoutMs: 2000
+assertions:
+  - kind: http_status
+    expected: 401
+security:
+  allowTargets:
+    - http://127.0.0.1:3000
+  redactPaths: []

@@ -129,6 +129,81 @@ describe('local scenario execution', () => {
     expect(methods).toEqual(['POST', 'GET']);
   });
 
+  it.each(['$', '$.accounts', '$.accounts[0]', '$.accounts[0].code'])(
+    'hides sensitive state values for redaction path %s',
+    async (redactPath) => {
+      await serve(
+        (_request, response) => {
+          response.writeHead(200).end(
+            JSON.stringify({
+              accounts: [
+                { code: 9475731234213, token: 'synthetic-probe-token' },
+              ],
+              accountsTotal: 3,
+            }),
+          );
+        },
+        async (origin) => {
+          const url = origin + '/state?token=synthetic-url-token';
+          const configuration = scenario(origin, {
+            assertions: [
+              {
+                kind: 'state_json',
+                url,
+                jsonPath: '$.accounts[0].code',
+                equals: 9416319474321,
+              },
+              {
+                kind: 'state_json',
+                url,
+                jsonPath: '$.accountsTotal',
+                equals: 1,
+              },
+              {
+                kind: 'state_json',
+                url,
+                jsonPath: '$.accounts[0].token',
+                equals: 'synthetic-probe-token',
+              },
+            ],
+            security: { allowTargets: [origin], redactPaths: [redactPath] },
+          });
+          const result = await runScenario(
+            configuration,
+            Buffer.from(
+              '{"id":"synthetic-event","token":"synthetic-fixture-token"}',
+            ),
+            origin,
+          );
+          expect(result.assertions.map(({ passed }) => passed)).toEqual([
+            false,
+            false,
+            true,
+          ]);
+          expect(result.assertions[0]?.detail).toBe(
+            'State did not match the expected value.',
+          );
+          expect(result.assertions[1]?.detail).toBe(
+            redactPath === '$'
+              ? 'State did not match the expected value.'
+              : 'Expected 1, observed 3.',
+          );
+          expect(runResultSchema.parse(result)).toEqual(result);
+          const serialized = JSON.stringify(result);
+          for (const secret of [
+            '9475731234213',
+            '9416319474321',
+            'synthetic-probe-token',
+            'synthetic-url-token',
+            'synthetic-fixture-token',
+          ]) {
+            expect(serialized).not.toContain(secret);
+          }
+        },
+      );
+    },
+  );
+
   it('checks all probe targets before sending any deliveries', async () => {
     let attempts = 0;
     await serve(
@@ -169,6 +244,37 @@ describe('local scenario execution', () => {
       },
     );
     expect(paths).toEqual(['/']);
+  });
+
+  it('denies state probe redirects before any follow-up request', async () => {
+    const visits: string[] = [];
+    await serve(
+      (request, response) => {
+        visits.push(request.method + ' ' + request.url);
+        if (request.method === 'GET') {
+          response.writeHead(302, { location: '/never-visited' }).end();
+        } else {
+          response.writeHead(200).end();
+        }
+      },
+      async (origin) => {
+        const configuration = scenario(origin, {
+          execution: { timeoutMs: 1000, count: 1 },
+          assertions: [
+            {
+              kind: 'state_json',
+              url: origin + '/state',
+              jsonPath: '$',
+              equals: null,
+            },
+          ],
+        });
+        await expect(
+          runScenario(configuration, fixture, origin),
+        ).rejects.toBeInstanceOf(TargetPolicyError);
+      },
+    );
+    expect(visits).toEqual(['POST /', 'GET /state']);
   });
 
   it('hashes a scenario independent of object key order and includes fixture bytes', () => {

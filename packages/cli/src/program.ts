@@ -10,7 +10,13 @@ import {
   loadScenario,
   readFixture,
 } from '@hookguard/schema';
-import { Command, CommanderError, type OutputConfiguration } from 'commander';
+import {
+  Command,
+  CommanderError,
+  Option,
+  type OutputConfiguration,
+} from 'commander';
+import { formatJsonReport, formatJunitReport } from './report.js';
 
 const require = createRequire(import.meta.url);
 const { version } = require('../package.json') as { version: string };
@@ -75,18 +81,45 @@ export async function runCli(
     )
     .option('-c, --config <file>', 'Scenario YAML file', 'hookguard.yaml')
     .requiredOption('--target <url>', 'Webhook endpoint URL')
-    .action(async ({ config, target }: { config: string; target: string }) => {
-      const scenario = await loadScenario(config);
-      const fixture = await readFixture(config, scenario.fixture.path);
-      const result = await runScenario(scenario, fixture, target);
-      writeOut(
-        `${result.passed ? 'PASS' : 'FAIL'} · ${result.attempts.length} delivery attempts\n`,
-      );
-      for (const { kind, passed, detail } of result.assertions) {
-        writeOut(`${passed ? 'PASS' : 'FAIL'} ${kind} · ${detail}\n`);
-      }
-      outcome = result.passed ? 0 : 1;
-    });
+    .addOption(
+      new Option('--format <format>', 'Report format')
+        .choices(['text', 'json', 'junit'])
+        .default('text'),
+    )
+    .action(
+      async ({
+        config,
+        target,
+        format,
+      }: {
+        config: string;
+        target: string;
+        format: 'text' | 'json' | 'junit';
+      }) => {
+        const scenario = await loadScenario(config);
+        const fixture = await readFixture(config, scenario.fixture.path);
+        const signingSecret = process.env.HOOKGUARD_SIGNING_SECRET;
+        const result = await runScenario(
+          scenario,
+          fixture,
+          target,
+          signingSecret === undefined ? {} : { signingSecret },
+        );
+        outcome = result.passed ? 0 : 1;
+        if (format === 'json') {
+          writeOut(formatJsonReport(result));
+        } else if (format === 'junit') {
+          writeOut(formatJunitReport(result));
+        } else {
+          writeOut(
+            `${result.passed ? 'PASS' : 'FAIL'} · ${result.attempts.length} delivery attempts\n`,
+          );
+          for (const { kind, passed, detail } of result.assertions) {
+            writeOut(`${passed ? 'PASS' : 'FAIL'} ${kind} · ${detail}\n`);
+          }
+        }
+      },
+    );
 
   try {
     if (args.length === 0) {

@@ -13,4 +13,4 @@ Please avoid publicly posting working exploits, secret credentials or personal i
 - Keep workflows least-privileged and dependency versions maintained.
 - Include tests for validation, signatures, replay and idempotency behavior.
 
-This project offers reliability testing, not a guarantee of security.
+See the [security model](docs/security-model.md) for the enforced network policy, synthetic signature examples, and test limitations.

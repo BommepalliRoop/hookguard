@@ -57,7 +57,9 @@ export const scenarioSchema = z.strictObject({
     'duplicate',
     'out_of_order',
     'retry',
+    'signed_payload',
     'bad_signature',
+    'stale_signature',
     'invalid_payload',
   ]),
   fixture: z.strictObject({ path: name, eventIdPath }),
@@ -89,7 +91,9 @@ export const runResultSchema = z.strictObject({
   scenarioHash: z.string().regex(/^[a-f0-9]{64}$/u),
   engineVersion: z
     .string()
-    .regex(/^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/u),
+    .regex(
+      /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-(?:0|[1-9]\d*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9]\d*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/u,
+    ),
   startedAt: z.iso.datetime({ offset: true }),
   attempts: z.array(
     z.strictObject({

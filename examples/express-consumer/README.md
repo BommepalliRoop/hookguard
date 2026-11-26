@@ -22,3 +22,5 @@ Run the [duplicate scenario](../scenarios/duplicate.yaml) against a fresh
 consumer on the default port. Three deliveries of the same event apply one
 credit in fixed mode and three credits in buggy mode. The scenario expects
 one credit.
+
+See the [security model](../../docs/security-model.md#synthetic-hmac-and-timestamp-checks) to enable signed deliveries and run the replay-window example.

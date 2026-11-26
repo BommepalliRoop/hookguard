@@ -1,3 +1,4 @@
+import { verifyWebhook } from '@hookguard/engine';
 import express, { type Express } from 'express';
 
 export type ConsumerMode = 'buggy' | 'fixed';
@@ -5,6 +6,7 @@ export type ConsumerMode = 'buggy' | 'fixed';
 type ConsumerOptions = {
   mode: ConsumerMode;
   failFirst?: number;
+  signingSecret?: string | undefined;
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -44,13 +46,22 @@ function readPayment(
 export function createExpressConsumer({
   mode,
   failFirst = 0,
+  signingSecret,
 }: ConsumerOptions): Express {
   if (!Number.isSafeInteger(failFirst) || failFirst < 0) {
     throw new RangeError('failFirst must be a nonnegative safe integer');
   }
 
+  if (signingSecret !== undefined && !signingSecret.trim()) {
+    throw new RangeError('The signing secret must be nonblank.');
+  }
+
   const app = express();
-  const parseJson = express.json({ limit: '64kb', inflate: false });
+  const bodyOptions = { limit: '64kb', inflate: false };
+  const parseBody =
+    signingSecret === undefined
+      ? express.json(bodyOptions)
+      : express.raw({ ...bodyOptions, type: 'application/json' });
   const seenEvents = new Set<string>();
   const orderCredits = new Map<string, number>();
   let remainingFailures = failFirst;
@@ -58,7 +69,7 @@ export function createExpressConsumer({
   app.post(
     ['/', '/webhook'],
     (request, response, next) => {
-      parseJson(request, response, (error?: unknown) => {
+      parseBody(request, response, (error?: unknown) => {
         if (error) {
           response.status(400).json({ error: 'invalid_payment' });
         } else {
@@ -67,7 +78,30 @@ export function createExpressConsumer({
       });
     },
     (request, response) => {
-      const payment = readPayment(request.body);
+      let body: unknown = request.body;
+      if (signingSecret !== undefined) {
+        if (
+          !Buffer.isBuffer(body) ||
+          !verifyWebhook(
+            body,
+            signingSecret,
+            request.get('x-hookguard-timestamp'),
+            request.get('x-hookguard-signature'),
+          )
+        ) {
+          response.status(401).json({ error: 'invalid_signature' });
+          return;
+        }
+        try {
+          body = JSON.parse(
+            new TextDecoder('utf-8', { fatal: true }).decode(body),
+          );
+        } catch {
+          response.status(400).json({ error: 'invalid_payment' });
+          return;
+        }
+      }
+      const payment = readPayment(body);
       if (!payment) {
         response.status(400).json({ error: 'invalid_payment' });
         return;

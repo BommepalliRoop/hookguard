@@ -1,4 +1,6 @@
 import { createServer } from 'node:http';
+import { runScenario } from '@hookguard/engine';
+import { scenarioSchema } from '@hookguard/schema';
 import { expect, test, type TestContext } from 'vitest';
 import { createExpressConsumer } from '../src/index.js';
 
@@ -106,4 +108,50 @@ test('rejects malformed and invalid payments without spending simulated failures
   await expect(readState(baseUrl)).resolves.toEqual({
     orders: { order_123: { creditsApplied: 1 } },
   });
+});
+
+test.for([
+  ['signed_payload', 200],
+  ['bad_signature', 401],
+  ['stale_signature', 401],
+] as const)(
+  'checks the %s scenario against a signed consumer',
+  async ([kind, status], { onTestFinished }) => {
+    const signingSecret = 'hookguard-synthetic-demo-test';
+    const baseUrl = await serve(onTestFinished, {
+      mode: 'fixed',
+      signingSecret,
+    });
+    const scenario = scenarioSchema.parse({
+      version: 1,
+      name: kind,
+      scenario: kind,
+      fixture: { path: 'synthetic.json', eventIdPath: '$.id' },
+      execution: { timeoutMs: 1000 },
+      assertions: [{ kind: 'http_status', expected: status }],
+      security: { allowTargets: [baseUrl.origin], redactPaths: [] },
+    });
+    const rawBody = Buffer.from(JSON.stringify(payment, null, 2) + '\n');
+    await expect(runScenario(scenario, rawBody, baseUrl.href)).rejects.toThrow(
+      'Signature scenarios require HOOKGUARD_SIGNING_SECRET.',
+    );
+    const result = await runScenario(scenario, rawBody, baseUrl.href, {
+      signingSecret,
+    });
+    expect(result.passed).toBe(true);
+    expect(result.attempts.map(({ status }) => status)).toEqual([status]);
+    expect(JSON.stringify(result)).not.toContain(signingSecret);
+    await expect(readState(baseUrl)).resolves.toEqual({
+      orders: status === 200 ? { order_123: { creditsApplied: 1 } } : {},
+    });
+  },
+);
+
+test('signature verification precedes parsing and business state changes', async ({
+  onTestFinished,
+}) => {
+  const signingSecret = 'hookguard-synthetic-demo-test';
+  const baseUrl = await serve(onTestFinished, { mode: 'fixed', signingSecret });
+  expect(await post(baseUrl, '/webhook', JSON.stringify(payment))).toBe(401);
+  await expect(readState(baseUrl)).resolves.toEqual({ orders: {} });
 });

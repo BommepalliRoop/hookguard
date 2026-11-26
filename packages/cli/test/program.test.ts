@@ -92,3 +92,60 @@ describe('hookguard CLI', () => {
     }
   });
 });
+
+it('rejects an unknown report format before running a scenario', async () => {
+  const writeOut = vi.fn();
+  const writeErr = vi.fn();
+  expect(
+    await runCli(
+      ['run', '--target', 'http://127.0.0.1:3000', '--format', 'csv'],
+      { writeOut, writeErr },
+    ),
+  ).toBe(2);
+  expect(writeErr).toHaveBeenCalledWith(expect.stringContaining('--format'));
+  expect(writeOut).not.toHaveBeenCalled();
+});
+
+it('returns the target policy exit code and never writes a partial report', async () => {
+  const config = fileURLToPath(
+    new URL('../../../examples/scenarios/duplicate.yaml', import.meta.url),
+  );
+  const writeOut = vi.fn();
+  const writeErr = vi.fn();
+  expect(
+    await runCli(
+      [
+        'run',
+        '-c',
+        config,
+        '--target',
+        'http://127.0.0.1:3001',
+        '--format',
+        'json',
+      ],
+      { writeOut, writeErr },
+    ),
+  ).toBe(3);
+  expect(writeErr).toHaveBeenCalledWith(
+    expect.stringContaining('Target rejected'),
+  );
+  expect(writeOut).not.toHaveBeenCalled();
+});
+
+it('returns a generic runtime diagnostic when writing output fails', async () => {
+  const config = fileURLToPath(
+    new URL('../../../examples/scenarios/duplicate.yaml', import.meta.url),
+  );
+  const writeErr = vi.fn();
+  expect(
+    await runCli(['validate', '-c', config], {
+      writeOut: () => {
+        throw new Error('synthetic-private-error');
+      },
+      writeErr,
+    }),
+  ).toBe(4);
+  expect(writeErr).toHaveBeenCalledExactlyOnceWith(
+    'An unexpected HookGuard error occurred.\n',
+  );
+});

@@ -1,17 +1,13 @@
 import { Buffer } from 'node:buffer';
 import { TextDecoder } from 'node:util';
+import { type ScenarioV1 } from '@hookguard/schema';
 import { schedule, shuffle, type ScheduledStep } from './primitives.js';
 
 const maxDeliveries = 100;
 const jsonPathPattern = /^\$(?:\.[A-Za-z0-9_-]+|\[(?:0|[1-9][0-9]*)\])*$/u;
 
 interface DeliveryScenario {
-  readonly scenario:
-    | 'duplicate'
-    | 'out_of_order'
-    | 'retry'
-    | 'bad_signature'
-    | 'invalid_payload';
+  readonly scenario: ScenarioV1['scenario'];
   readonly fixture: { readonly eventIdPath: string };
   readonly execution: { readonly count?: number | undefined };
   readonly seed?: number | undefined;
