@@ -33,7 +33,8 @@
       ],
       "evidence": [
         "f9c61727c0865793388a4ec107903b57711584bf",
-        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511"
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45122507511",
+        "Owner confirmation recorded in docs/STATUS.md in merged PR #1."
       ],
       "completedAt": "2026-11-23T11:21:40Z"
     },
@@ -388,14 +389,19 @@
       "owner": "C",
       "dependencies": ["HG-011"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
-      "evidence": ["f2aa61c"],
-      "completedAt": null
+      "evidence": [
+        "f2aa61c",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
+      ],
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-022",
@@ -404,14 +410,19 @@
       "owner": "C",
       "dependencies": ["HG-021"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
-      "evidence": ["f2aa61c"],
-      "completedAt": null
+      "evidence": [
+        "f2aa61c",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
+      ],
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-023",
@@ -420,14 +431,19 @@
       "owner": "C",
       "dependencies": ["HG-022"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
-      "evidence": ["f2aa61c"],
-      "completedAt": null
+      "evidence": [
+        "f2aa61c",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
+      ],
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-024",
@@ -436,14 +452,19 @@
       "owner": "B",
       "dependencies": ["HG-016", "HG-018"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
-      "evidence": ["6553366"],
-      "completedAt": null
+      "evidence": [
+        "6553366",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
+      ],
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-025",
@@ -452,14 +473,19 @@
       "owner": "B",
       "dependencies": ["HG-016", "HG-024"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
-      "evidence": ["6553366"],
-      "completedAt": null
+      "evidence": [
+        "6553366",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
+      ],
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-026",
@@ -468,14 +494,19 @@
       "owner": "B",
       "dependencies": ["HG-022", "HG-023"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
-      "evidence": ["6553366"],
-      "completedAt": null
+      "evidence": [
+        "6553366",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
+      ],
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-027",
@@ -484,17 +515,20 @@
       "owner": "B",
       "dependencies": ["HG-012", "HG-024", "HG-025", "HG-026"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
       "evidence": [
         "packages/engine/test/run.test.ts",
-        "packages/cli/test/run.test.ts"
+        "packages/cli/test/run.test.ts",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
       ],
-      "completedAt": null
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-028",
@@ -503,17 +537,20 @@
       "owner": "B",
       "dependencies": ["HG-027"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
       "evidence": [
         "packages/engine/test/run.test.ts",
-        "packages/cli/test/run.test.ts"
+        "packages/cli/test/run.test.ts",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
       ],
-      "completedAt": null
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-029",
@@ -522,17 +559,20 @@
       "owner": "C",
       "dependencies": ["HG-021", "HG-022", "HG-023", "HG-028"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
       "evidence": [
         "packages/engine/test/run.test.ts",
-        "packages/cli/test/run.test.ts"
+        "packages/cli/test/run.test.ts",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
       ],
-      "completedAt": null
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-030",
@@ -541,14 +581,19 @@
       "owner": "E",
       "dependencies": ["HG-018", "HG-024"],
       "branch": "phase-3/http-runner",
-      "pr": null,
-      "status": "review",
+      "pr": 4,
+      "status": "completed",
       "tests": [
         "207 focused tests; typecheck, builds and compiled buggy/fixed CLI smoke passed",
         "Full local suite passed 268 tests"
       ],
-      "evidence": ["785aa47"],
-      "completedAt": null
+      "evidence": [
+        "785aa47",
+        "0bd877ada77c5f41b60f2e23d2c5e59fd7169a7d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825664",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45169825691"
+      ],
+      "completedAt": "2026-11-23T11:57:37Z"
     },
     {
       "id": "HG-031",
@@ -556,9 +601,9 @@
       "phase": 4,
       "owner": "E",
       "dependencies": ["HG-012", "HG-027", "HG-028", "HG-029"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -569,9 +614,9 @@
       "phase": 4,
       "owner": "E",
       "dependencies": ["HG-031"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -582,9 +627,9 @@
       "phase": 4,
       "owner": "A",
       "dependencies": ["HG-014", "HG-021", "HG-028", "HG-031"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -595,9 +640,9 @@
       "phase": 4,
       "owner": "C",
       "dependencies": ["HG-012", "HG-029", "HG-031"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -608,9 +653,9 @@
       "phase": 4,
       "owner": "C",
       "dependencies": ["HG-023", "HG-030"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -621,9 +666,9 @@
       "phase": 4,
       "owner": "C",
       "dependencies": ["HG-035"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -634,9 +679,9 @@
       "phase": 4,
       "owner": "C",
       "dependencies": ["HG-021", "HG-022", "HG-023"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -647,9 +692,9 @@
       "phase": 4,
       "owner": "D",
       "dependencies": ["HG-021", "HG-037"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -660,9 +705,9 @@
       "phase": 4,
       "owner": "D",
       "dependencies": ["HG-031", "HG-034", "HG-035"],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -680,9 +725,9 @@
         "HG-038",
         "HG-039"
       ],
-      "branch": null,
+      "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -793,9 +838,11 @@
       "dependencies": ["HG-043", "HG-044", "HG-046", "HG-047", "HG-049"],
       "branch": null,
       "pr": null,
-      "status": "pending",
+      "status": "blocked",
       "tests": [],
-      "evidence": [],
+      "evidence": [
+        "No GitHub release, tag, publishing secret or release environment is configured. npm scope ownership and release acceptance remain unverified."
+      ],
       "completedAt": null
     },
     {
@@ -819,9 +866,11 @@
       "dependencies": ["HG-043", "HG-048"],
       "branch": null,
       "pr": null,
-      "status": "pending",
+      "status": "blocked",
       "tests": [],
-      "evidence": [],
+      "evidence": [
+        "The backlog requires a passing CLI beta before the reusable Action."
+      ],
       "completedAt": null
     },
     {
@@ -936,9 +985,9 @@
       "dependencies": ["HG-048", "HG-053"],
       "branch": null,
       "pr": null,
-      "status": "pending",
+      "status": "blocked",
       "tests": [],
-      "evidence": [],
+      "evidence": ["Genuine external user feedback has not been verified."],
       "completedAt": null
     },
     {
@@ -956,9 +1005,11 @@
       ],
       "branch": null,
       "pr": null,
-      "status": "pending",
+      "status": "blocked",
       "tests": [],
-      "evidence": [],
+      "evidence": [
+        "Stable release requires user validation and the alpha acceptance gates."
+      ],
       "completedAt": null
     }
   ]

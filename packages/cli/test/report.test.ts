@@ -7,7 +7,7 @@ const result: RunResultV1 = {
   name: 'Duplicate <payment> & "credits"',
   seed: 42,
   scenarioHash: 'f'.repeat(64),
-  engineVersion: '0.0.0',
+  engineVersion: '0.1.0-alpha.1+build.2',
   startedAt: '2026-11-26T00:00:00.000Z',
   attempts: [{ sequence: 1, status: 200, durationMs: 24, plannedDelayMs: 0 }],
   assertions: [

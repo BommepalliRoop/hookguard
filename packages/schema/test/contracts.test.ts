@@ -299,6 +299,7 @@ describe('RunResultV1', () => {
     ['invalid scenario hash', { scenarioHash: 'x'.repeat(64) }],
     ['missing scenario hash', { scenarioHash: undefined }],
     ['invalid engine version', { engineVersion: 'latest' }],
+    ['invalid prerelease version', { engineVersion: '0.1.0-alpha.01' }],
     ['missing seed', { seed: undefined }],
     ['invalid timestamp', { startedAt: '2026-11-23' }],
     [

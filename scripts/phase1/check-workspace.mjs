@@ -1,7 +1,7 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, realpath } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import process from 'node:process';
-import { fileURLToPath, pathToFileURL, URL } from 'node:url';
+import { fileURLToPath, URL } from 'node:url';
 
 const workspaceRoot = fileURLToPath(new URL('../../', import.meta.url));
 const baseConfig = 'tsconfig.base.json';
@@ -93,10 +93,10 @@ export async function checkWorkspace(root = workspaceRoot) {
   return errors;
 }
 
-if (
-  process.argv[1] &&
-  pathToFileURL(resolve(process.argv[1])).href === import.meta.url
-) {
+const entryPath = process.argv[1]
+  ? await realpath(process.argv[1]).catch(() => undefined)
+  : undefined;
+if (entryPath === fileURLToPath(import.meta.url)) {
   const errors = await checkWorkspace();
   if (errors.length > 0) {
     process.stderr.write(`${errors.join('\n')}\n`);
