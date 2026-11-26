@@ -44,14 +44,20 @@ async function writeJson(path, value) {
 
 async function stageCode(stage, packedFiles) {
   for (const [module, directory] of Object.entries(modules)) {
-    const source = join(root, 'packages', module, 'dist');
+    const source = join(root, 'packages', module);
     await mkdir(join(stage, directory), { recursive: true });
-    const files = await readdir(source, { withFileTypes: true });
-    assert(files.some((file) => file.isFile() && file.name === 'index.js'));
+    const files = await readdir(join(source, 'src'), { withFileTypes: true });
+    assert(files.some((file) => file.isFile() && file.name === 'index.ts'));
     for (const file of files) {
-      if (!file.isFile() || !file.name.endsWith('.js')) continue;
-      const path = posix.join(directory, file.name);
-      const script = await readFile(join(source, file.name), 'utf8');
+      if (
+        !file.isFile() ||
+        !file.name.endsWith('.ts') ||
+        file.name.endsWith('.d.ts')
+      )
+        continue;
+      const compiled = file.name.slice(0, -3) + '.js';
+      const path = posix.join(directory, compiled);
+      const script = await readFile(join(source, 'dist', compiled), 'utf8');
       const staged = script
         .replace(
           /(\bfrom\s+)(['"])@hookguard\/(engine|schema)\2/gu,
