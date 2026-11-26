@@ -16,6 +16,7 @@ import {
   Option,
   type OutputConfiguration,
 } from 'commander';
+import { InitError, initExpressTemplate } from './init.js';
 import { formatJsonReport, formatJunitReport } from './report.js';
 
 const require = createRequire(import.meta.url);
@@ -63,6 +64,27 @@ export async function runCli(
   const writeErr =
     output.writeErr ?? ((message: string) => process.stderr.write(message));
   let outcome = 0;
+
+  program
+    .command('init')
+    .description('Create a synthetic Express scenario in a new local directory')
+    .argument(
+      '[directory]',
+      'New directory for the scenario',
+      'hookguard-example',
+    )
+    .addOption(
+      new Option('--template <name>', 'Scenario template')
+        .choices(['express'])
+        .default('express'),
+    )
+    .action(async (directory: string) => {
+      await initExpressTemplate(directory);
+      writeOut(
+        'Created hookguard.yaml and payment-captured.json.\n' +
+          'Run hookguard validate --config with the path to the new hookguard.yaml.\n',
+      );
+    });
 
   program
     .command('validate')
@@ -135,6 +157,7 @@ export async function runCli(
     if (
       error instanceof ConfigError ||
       error instanceof FixtureError ||
+      error instanceof InitError ||
       error instanceof DeliveryPlanError
     ) {
       writeErr(`Configuration error: ${escapeDiagnostic(error.message)}\n`);
