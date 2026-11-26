@@ -55,6 +55,14 @@ function denyRedirect(status: number) {
   }
 }
 
+function isPathWithin(path: string, parent: string): boolean {
+  return (
+    path === parent ||
+    path.startsWith(parent + '.') ||
+    path.startsWith(parent + '[')
+  );
+}
+
 async function evaluateAssertions(
   scenario: ScenarioV1,
   policy: TargetPolicy,
@@ -113,7 +121,11 @@ async function evaluateAssertions(
         typeof actual === 'number' &&
         Number.isFinite(actual) &&
         typeof assertion.equals === 'number' &&
-        scenario.security.redactPaths.length === 0;
+        !scenario.security.redactPaths.some(
+          (path) =>
+            isPathWithin(assertion.jsonPath, path) ||
+            isPathWithin(path, assertion.jsonPath),
+        );
       results.push({
         kind: assertion.kind,
         passed,
