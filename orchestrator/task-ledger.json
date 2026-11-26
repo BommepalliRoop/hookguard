@@ -603,9 +603,12 @@
       "dependencies": ["HG-012", "HG-027", "HG-028", "HG-029"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -616,9 +619,12 @@
       "dependencies": ["HG-031"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -629,9 +635,12 @@
       "dependencies": ["HG-014", "HG-021", "HG-028", "HG-031"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -642,9 +651,12 @@
       "dependencies": ["HG-012", "HG-029", "HG-031"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -655,9 +667,12 @@
       "dependencies": ["HG-023", "HG-030"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -668,9 +683,12 @@
       "dependencies": ["HG-035"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -681,9 +699,12 @@
       "dependencies": ["HG-021", "HG-022", "HG-023"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -694,9 +715,12 @@
       "dependencies": ["HG-021", "HG-037"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -707,9 +731,12 @@
       "dependencies": ["HG-031", "HG-034", "HG-035"],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -727,9 +754,12 @@
       ],
       "branch": "phase-4/secure-reports",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "317 integrated tests with coverage on Node.js 24",
+        "159 targeted tests in an independent detached worktree"
+      ],
+      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {

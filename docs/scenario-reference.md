@@ -8,7 +8,7 @@ Run `hookguard validate --config examples/scenarios/duplicate.yaml` after buildi
 | --- | --- |
 | `version` | Schema version. Use `1`. |
 | `name` | Label for the scenario and its report. |
-| `scenario` | `duplicate`, `out_of_order`, `retry`, `bad_signature`, or `invalid_payload`. |
+| `scenario` | `duplicate`, `out_of_order`, `retry`, `signed_payload`, `bad_signature`, `stale_signature`, or `invalid_payload`. |
 | `fixture.path` | Regular file relative to the scenario directory. The size limit is 1 MiB. |
 | `fixture.eventIdPath` | Simple JSONPath for an event identifier, such as `$.id`. |
 | `seed` | Optional unsigned 32-bit integer for deterministic scheduling. |
@@ -27,6 +27,10 @@ The CLI exit codes are 0 for success, 1 for a failed scenario assertion, 2 for c
 Duplicate scenarios send the original bytes to the same target for each delivery. An out-of-order fixture is a JSON array of events. Its seed produces a repeatable order. A retry policy sets `maxAttempts`, fixed `backoffMs`, optional seeded `jitterMs`, and retryable HTTP `statuses`. For retryable 429 and 503 responses, a longer valid `Retry-After` can increase the delay up to 60 seconds.
 
 `http_status` evaluates the last attempt of each delivery. `delivery_count` counts all attempts, including retries. `state_json` reads the observed state after delivery.
+
+## Signature scenarios
+
+Use `signed_payload` for a fresh HMAC, `bad_signature` for a mismatched digest, and `stale_signature` for an expired timestamp. Set `HOOKGUARD_SIGNING_SECRET` to the same synthetic value in the runner and the receiver. See the [security model](security-model.md) for the signed-byte format, timestamp window, and worked example.
 
 ## Reports
 
