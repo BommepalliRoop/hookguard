@@ -602,14 +602,21 @@
       "owner": "E",
       "dependencies": ["HG-012", "HG-027", "HG-028", "HG-029"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-032",
@@ -618,14 +625,21 @@
       "owner": "E",
       "dependencies": ["HG-031"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-033",
@@ -634,14 +648,21 @@
       "owner": "A",
       "dependencies": ["HG-014", "HG-021", "HG-028", "HG-031"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-034",
@@ -650,14 +671,21 @@
       "owner": "C",
       "dependencies": ["HG-012", "HG-029", "HG-031"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-035",
@@ -666,14 +694,21 @@
       "owner": "C",
       "dependencies": ["HG-023", "HG-030"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-036",
@@ -682,14 +717,21 @@
       "owner": "C",
       "dependencies": ["HG-035"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-037",
@@ -698,14 +740,21 @@
       "owner": "C",
       "dependencies": ["HG-021", "HG-022", "HG-023"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-038",
@@ -714,14 +763,21 @@
       "owner": "D",
       "dependencies": ["HG-021", "HG-037"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-039",
@@ -730,14 +786,21 @@
       "owner": "D",
       "dependencies": ["HG-031", "HG-034", "HG-035"],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-040",
@@ -753,14 +816,21 @@
         "HG-039"
       ],
       "branch": "phase-4/secure-reports",
-      "pr": null,
-      "status": "review",
+      "pr": 5,
+      "status": "completed",
       "tests": [
         "317 integrated tests with coverage on Node.js 24",
-        "159 targeted tests in an independent detached worktree"
+        "159 targeted tests in an independent detached worktree",
+        "Hosted engineering checks passed on Node.js 22, 24, and 26; documentation links passed"
       ],
-      "evidence": ["066b381", "docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "066b381",
+        "docs/TEST_EVIDENCE.md",
+        "1653cfd01e7d2878c8e0a3ffdb313449f861591d",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021945",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45867021826"
+      ],
+      "completedAt": "2026-11-26T17:22:24Z"
     },
     {
       "id": "HG-041",
@@ -768,9 +838,9 @@
       "phase": 5,
       "owner": "A",
       "dependencies": ["HG-014", "HG-020", "HG-030"],
-      "branch": null,
+      "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -781,9 +851,9 @@
       "phase": 5,
       "owner": "E",
       "dependencies": ["HG-033"],
-      "branch": null,
+      "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -801,9 +871,9 @@
         "HG-036",
         "HG-038"
       ],
-      "branch": null,
+      "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -814,9 +884,9 @@
       "phase": 5,
       "owner": "E",
       "dependencies": ["HG-041", "HG-042", "HG-043"],
-      "branch": null,
+      "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -827,9 +897,9 @@
       "phase": 5,
       "owner": "E",
       "dependencies": ["HG-030", "HG-031", "HG-032"],
-      "branch": null,
+      "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -840,9 +910,9 @@
       "phase": 5,
       "owner": "F",
       "dependencies": ["HG-043"],
-      "branch": null,
+      "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -853,9 +923,9 @@
       "phase": 5,
       "owner": "F",
       "dependencies": ["HG-044", "HG-046"],
-      "branch": null,
+      "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null
@@ -881,9 +951,9 @@
       "phase": 5,
       "owner": "F",
       "dependencies": ["HG-001", "HG-003", "HG-046"],
-      "branch": null,
+      "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "pending",
+      "status": "running",
       "tests": [],
       "evidence": [],
       "completedAt": null

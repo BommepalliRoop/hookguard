@@ -15,7 +15,7 @@ Last reviewed: 2026-11-26
 | CLI scenario validation and schema | Verified locally | [Scenario reference](scenario-reference.md), [schema package](../packages/schema/package.json), and [CLI tests](../packages/cli/test/program.test.ts) |
 | Duplicate, ordering, and retry simulation | Verified locally | [Runner tests](../packages/engine/test/run.test.ts) and [scenario reference](scenario-reference.md) |
 | Webhook delivery test suite and example receiver | Verified locally | [Express demo](../examples/express-consumer/README.md) and [CLI integration tests](../packages/cli/test/run.test.ts) |
-| Signature scenarios and report serialization | Verified locally | [Security model](security-model.md) and [test evidence](TEST_EVIDENCE.md) |
+| Signature scenarios and report serialization | Merged after independent review and CI | [Security model](security-model.md) and [test evidence](TEST_EVIDENCE.md) |
 | npm release | Not published | Owner approval and verified tests required |
 | Community adoption | Not established | Genuine users and real integrations required |
 
