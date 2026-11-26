@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { execPath } from 'node:process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, URL } from 'node:url';
 import { expect, test } from 'vitest';
 import { createFixture, makeTask } from './test-fixture.mjs';
 
@@ -31,7 +31,7 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
   fixture.writeWorker(`
     import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
     import { cwd, exit, pid } from 'node:process';
-    import { fileURLToPath } from 'node:url';
+    import { fileURLToPath, URL } from 'node:url';
 
     const { task, workerId, attempt, model } = JSON.parse(readFileSync(0, 'utf8'));
     const ledger = new URL('./worker-events.jsonl', import.meta.url);
@@ -135,8 +135,7 @@ test('assigns independent tasks to two workers at the same time', ({
   const fixture = createFixture(onTestFinished);
   fixture.writeConfig([makeTask('left'), makeTask('right')]);
   fixture.writeWorker(`
-    import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, symlinkSync, writeFileSync } from 'node:fs';
+    import { existsSync, readFileSync, writeFileSync } from 'node:fs';
     import { setTimeout } from 'node:timers/promises';
 
     const { task, workerId } = JSON.parse(readFileSync(0, 'utf8'));

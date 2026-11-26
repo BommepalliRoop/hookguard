@@ -41,14 +41,13 @@ jobs:
       - name: Smoke test the built CLI
         run: node scripts/phase1/cli-smoke.mjs
       - name: Verify buggy and fixed webhook consumers with the built CLI
-        run: python scripts/phase5/verify_demo.py
+        run: ${{ runner.os == 'Windows' && 'python' || 'python3' }} scripts/phase5/verify_demo.py
       - name: Rehearse reproducible CLI packaging and clean installation
         if: matrix.label == '24'
         run: |
           pnpm run package:cli
           archive="$(realpath dist/release/*.tgz)"
           temp_dir="$(mktemp -d)"
-          trap 'rm -rf "$temp_dir"' EXIT
           cp "$archive" "$temp_dir/first.tgz"
           pnpm run package:cli
           cmp "$temp_dir/first.tgz" "$archive"
@@ -57,6 +56,8 @@ jobs:
           "$cli" --version
           "$cli" init "$temp_dir/example"
           "$cli" validate --config "$temp_dir/example/hookguard.yaml"
+          python3 scripts/phase5/verify_demo.py --cli "$temp_dir/node_modules/@hookguard/cli/dist/index.js"
+          pnpm audit
       - name: Run tests and offline orchestrator checks
         run: pnpm test:coverage
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0

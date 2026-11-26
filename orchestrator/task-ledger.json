@@ -840,9 +840,11 @@
       "dependencies": ["HG-014", "HG-020", "HG-030"],
       "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -853,9 +855,11 @@
       "dependencies": ["HG-033"],
       "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -873,9 +877,11 @@
       ],
       "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -886,9 +892,11 @@
       "dependencies": ["HG-041", "HG-042", "HG-043"],
       "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -899,9 +907,11 @@
       "dependencies": ["HG-030", "HG-031", "HG-032"],
       "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -912,9 +922,11 @@
       "dependencies": ["HG-043"],
       "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -925,9 +937,11 @@
       "dependencies": ["HG-044", "HG-046"],
       "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -953,9 +967,14 @@
       "dependencies": ["HG-001", "HG-003", "HG-046"],
       "branch": "phase-5/alpha-rehearsal",
       "pr": null,
-      "status": "running",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
+      ],
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "Package metadata and private tarball passed; npm publishing scope ownership remains unverified."
+      ],
       "completedAt": null
     },
     {

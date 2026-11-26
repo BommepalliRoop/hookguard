@@ -97,7 +97,7 @@ def verify_junit(output, passed, detail):
         require(suite[-1][0].tag, "failure", "JUnit failure tag")
 
 
-def verify_run(mode, credits, report_format, directory):
+def verify_run(mode, credits, report_format, directory, cli):
     environment = {
         key: value
         for key, value in os.environ.items()
@@ -113,7 +113,7 @@ def verify_run(mode, credits, report_format, directory):
         )
         result = run(
             [
-                "node", str(CLI), "run", "--config", str(config),
+                "node", str(cli), "run", "--config", str(config),
                 "--target", origin + "/webhook", "--format", report_format,
             ],
             cwd=directory,
@@ -146,7 +146,9 @@ def verify_run(mode, credits, report_format, directory):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reports", type=Path, help="Directory to save verified reports")
+    parser.add_argument("--cli", type=Path, default=CLI, help="Built or installed CLI entry point")
     args = parser.parse_args()
+    cli = args.cli.resolve()
 
     reports = {}
     with TemporaryDirectory(prefix="hookguard-demo-") as temporary:
@@ -157,7 +159,7 @@ def main():
         for mode, credits in (("buggy", 3), ("fixed", 1)):
             for report_format, extension in (("json", "json"), ("junit", "xml")):
                 reports[f"{mode}.{extension}"] = verify_run(
-                    mode, credits, report_format, directory
+                    mode, credits, report_format, directory, cli
                 )
             print(f"{mode} consumer verified with {credits} credit(s) in JSON and JUnit")
 
