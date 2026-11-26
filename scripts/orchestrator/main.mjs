@@ -11,7 +11,7 @@ import { hostname } from 'node:os';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import process from 'node:process';
 import { setTimeout as wait } from 'node:timers/promises';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import {
   chatGptEnvironment,
@@ -694,10 +694,10 @@ async function main() {
   }
 }
 
-if (
-  process.argv[1] &&
-  pathToFileURL(process.argv[1]).href === import.meta.url
-) {
+const entryPath = process.argv[1]
+  ? await realpath(process.argv[1]).catch(() => undefined)
+  : undefined;
+if (entryPath === fileURLToPath(import.meta.url)) {
   try {
     process.exitCode = await main();
   } catch (error) {
