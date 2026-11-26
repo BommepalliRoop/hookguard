@@ -32,6 +32,8 @@ jobs:
       - run: pnpm build
       - name: Smoke test the built CLI
         run: node scripts/phase1/cli-smoke.mjs
+      - name: Verify buggy and fixed webhook consumers with the built CLI
+        run: python3 scripts/phase5/verify_demo.py
       - name: Run tests and offline orchestrator checks
         run: pnpm test:coverage
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0

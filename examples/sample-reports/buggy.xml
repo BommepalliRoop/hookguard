@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="3" failures="1">
+  <testsuite name="payment-captured-duplicate" tests="3" failures="1">
+    <testcase classname="hookguard" name="1. http_status"/>
+    <testcase classname="hookguard" name="2. delivery_count"/>
+    <testcase classname="hookguard" name="3. state_json">
+      <failure message="Assertion failed">Expected 1, observed 3.</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
