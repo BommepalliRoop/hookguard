@@ -25,9 +25,12 @@ function canonicalHttpDate(value: string, nowMs: number): string {
   return value;
 }
 
-function serverDelayMs(header: string | undefined, nowMs: number): number {
+export function serverDelayMs(
+  header: string | undefined,
+  nowMs: number,
+): number | undefined {
   const value = header?.replace(/^[ \t]+|[ \t]+$/gu, '');
-  if (!value) return 0;
+  if (!value) return undefined;
   if (/^[0-9]+$/u.test(value)) return Number(value) * 1000;
 
   const canonical = canonicalHttpDate(value, nowMs);
@@ -37,7 +40,7 @@ function serverDelayMs(header: string | undefined, nowMs: number): number {
     !Number.isFinite(timestamp) ||
     new Date(timestamp).toUTCString() !== normalized
   ) {
-    return 0;
+    return undefined;
   }
   const leapSecondMs = normalized === canonical ? 0 : 1000;
   return Math.max(0, Math.ceil(timestamp + leapSecondMs - nowMs));
@@ -70,6 +73,6 @@ export function retryDelayMs(
   const localDelay = policy.backoffMs + Math.floor(sample * (jitter + 1));
   return Math.min(
     maxDelayMs,
-    Math.max(localDelay, serverDelayMs(retryAfter, nowMs)),
+    Math.max(localDelay, serverDelayMs(retryAfter, nowMs) ?? 0),
   );
 }

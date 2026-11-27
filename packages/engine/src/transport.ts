@@ -1,5 +1,6 @@
 import { request as httpRequest } from 'node:http';
 import { request as httpsRequest } from 'node:https';
+import { serverDelayMs } from './retry.js';
 
 const maxBytes = 1024 * 1024;
 const authority =
@@ -74,12 +75,9 @@ export function createTargetPolicy(
 }
 
 function safeRetryAfter(value: string | undefined): string | undefined {
-  if (!value || value.length > 32) return undefined;
-  if (/^\d+$/.test(value)) return value;
-  const date = new Date(value);
-  return Number.isFinite(date.getTime()) && date.toUTCString() === value
-    ? value
-    : undefined;
+  // A full weekday in an RFC 850 date can occupy up to nine characters.
+  if (!value || value.length > 33) return undefined;
+  return serverDelayMs(value, Date.now()) === undefined ? undefined : value;
 }
 
 export async function sendRequest(
