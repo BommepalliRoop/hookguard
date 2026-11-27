@@ -697,7 +697,13 @@ async function main() {
 const entryPath = process.argv[1]
   ? await realpath(process.argv[1]).catch(() => undefined)
   : undefined;
-if (entryPath === fileURLToPath(import.meta.url)) {
+const modulePath = await realpath(fileURLToPath(import.meta.url));
+const isEntrypoint =
+  entryPath !== undefined &&
+  (process.platform === 'win32'
+    ? entryPath.toLowerCase() === modulePath.toLowerCase()
+    : entryPath === modulePath);
+if (isEntrypoint) {
   try {
     process.exitCode = await main();
   } catch (error) {
