@@ -14,9 +14,12 @@ it.each([
   { mode: 'buggy', credits: 3, exit: 1, format: 'json' },
   { mode: 'fixed', credits: 1, exit: 0, format: 'junit' },
   { mode: 'buggy', credits: 3, exit: 1, format: 'junit' },
+  { mode: 'buggy', credits: 3, exit: 1, format: 'text', redactDetail: true },
 ] as const)(
   'observes $credits credit(s) when running against the $mode Express consumer in $format output',
-  async ({ mode, credits, exit, format }) => {
+  async (testCase) => {
+    const { mode, credits, exit, format } = testCase;
+    const redactDetail = 'redactDetail' in testCase;
     const directory = await mkdtemp(join(tmpdir(), 'hookguard-express-e2e-'));
     const server = createExpressConsumer({ mode }).listen(0, '127.0.0.1');
     try {
@@ -40,14 +43,25 @@ it.each([
           .replace('./fixtures/payment-captured.json', './payment.json')
           .replace(
             'redactPaths: []',
-            redact ? 'redactPaths: [$.orders]' : 'redactPaths: []',
+            redactDetail
+              ? 'redactPaths: ["$.assertions[2].detail"]'
+              : redact
+                ? 'redactPaths: [$.orders]'
+                : 'redactPaths: []',
           ),
       );
       const writeOut = vi.fn();
       const writeErr = vi.fn();
       expect(
         await runCli(
-          ['run', '-c', config, '--target', origin, '--format', format],
+          [
+            'run',
+            '-c',
+            config,
+            '--target',
+            origin,
+            ...(redactDetail ? [] : ['--format', format]),
+          ],
           {
             writeOut,
             writeErr,
@@ -56,7 +70,9 @@ it.each([
       ).toBe(exit);
       expect(writeErr).not.toHaveBeenCalled();
       const report = writeOut.mock.calls.flat().join('');
-      if (redact) expect(report).not.toContain('Expected 1, observed 3.');
+      if (redact || redactDetail)
+        expect(report).not.toContain('Expected 1, observed 3.');
+      if (redactDetail) expect(report).toContain('[REDACTED]');
       if (format === 'json') {
         expect(runResultSchema.parse(JSON.parse(report))).toMatchObject({
           passed: false,
@@ -68,7 +84,7 @@ it.each([
         expect(report).toContain('<testsuite');
         expect(report).toContain(`failures="${exit}"`);
         expect(report.includes('<failure ')).toBe(exit === 1);
-      } else {
+      } else if (!redactDetail) {
         expect(report).toContain(`Expected 1, observed ${credits}.`);
       }
       const visibleState: unknown = await (

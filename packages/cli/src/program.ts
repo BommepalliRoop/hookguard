@@ -20,6 +20,7 @@ import { InitError, initExpressTemplate } from './init.js';
 import {
   formatJsonReport,
   formatJunitReport,
+  redactRunResult,
   renderHtmlReport,
 } from './report.js';
 
@@ -146,7 +147,10 @@ export async function runCli(
           writeOut(
             `${result.passed ? 'PASS' : 'FAIL'} · ${result.attempts.length} delivery attempts\n`,
           );
-          for (const { kind, passed, detail } of result.assertions) {
+          for (const { kind, passed, detail } of redactRunResult(
+            result,
+            redaction,
+          ).assertions) {
             writeOut(`${passed ? 'PASS' : 'FAIL'} ${kind} · ${detail}\n`);
           }
         }

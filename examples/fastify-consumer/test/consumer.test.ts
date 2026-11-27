@@ -44,6 +44,7 @@ test.for([
   ['fixed', 1],
 ] as const)(
   '%s mode leaves %s credits after three deliveries',
+  { timeout: 15_000 },
   async ([mode, creditsApplied], { onTestFinished }) => {
     const app = createTestApp(onTestFinished, { mode });
     for (const path of ['/webhook', '/webhook', '/']) {
@@ -62,8 +63,6 @@ test.for([
       orders: { order_123: { creditsApplied: creditsApplied + 1 } },
     });
   },
-  // The first Fastify boot can exceed the default under concurrent builds.
-  15_000,
 );
 
 test('rejects invalid payments before spending a simulated failure', async ({
