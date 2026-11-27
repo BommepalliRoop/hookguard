@@ -1020,13 +1020,16 @@
       "owner": "E",
       "dependencies": ["HG-030", "HG-035"],
       "branch": "phase-6/integrations",
-      "pr": null,
-      "status": "review",
+      "pr": 8,
+      "status": "completed",
       "tests": [
-        "Focused worker tests and compiled consumer comparisons passed."
+        "338 tests in hosted CI; Linux Node 22, 24 and 26 and Windows Node 24 passed; compiled Express demo verified JSON and JUnit"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45996073565"
+      ],
+      "completedAt": "2026-11-27T17:40:38+05:30"
     },
     {
       "id": "HG-052",
@@ -1035,28 +1038,34 @@
       "owner": "E",
       "dependencies": ["HG-030", "HG-035"],
       "branch": "phase-6/integrations",
-      "pr": null,
-      "status": "review",
+      "pr": 8,
+      "status": "completed",
       "tests": [
-        "Focused worker tests and compiled consumer comparisons passed."
+        "338 tests in hosted CI; Linux Node 22, 24 and 26 and Windows Node 24 passed; compiled Express demo verified JSON and JUnit"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45996073565"
+      ],
+      "completedAt": "2026-11-27T17:40:38+05:30"
     },
     {
       "id": "HG-053",
       "title": "Publish end-to-end idempotency regression example",
       "phase": 6,
       "owner": "E",
-      "dependencies": ["HG-043", "HG-044", "HG-048"],
+      "dependencies": ["HG-043", "HG-044"],
       "branch": "phase-6/integrations",
-      "pr": null,
-      "status": "review",
+      "pr": 8,
+      "status": "completed",
       "tests": [
-        "Focused worker tests and compiled consumer comparisons passed."
+        "338 tests in hosted CI; Linux Node 22, 24 and 26 and Windows Node 24 passed; compiled Express demo verified JSON and JUnit"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45996073565"
+      ],
+      "completedAt": "2026-11-27T17:40:38+05:30"
     },
     {
       "id": "HG-054",
@@ -1065,13 +1074,16 @@
       "owner": "B",
       "dependencies": ["HG-026"],
       "branch": "phase-6/integrations",
-      "pr": null,
-      "status": "review",
+      "pr": 8,
+      "status": "completed",
       "tests": [
-        "Focused worker tests and compiled consumer comparisons passed."
+        "338 tests in hosted CI; Linux Node 22, 24 and 26 and Windows Node 24 passed; compiled Express demo verified JSON and JUnit"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45996073565"
+      ],
+      "completedAt": "2026-11-27T17:40:38+05:30"
     },
     {
       "id": "HG-055",
@@ -1080,13 +1092,16 @@
       "owner": "E",
       "dependencies": ["HG-020", "HG-035", "HG-036"],
       "branch": "phase-6/integrations",
-      "pr": null,
-      "status": "review",
+      "pr": 8,
+      "status": "completed",
       "tests": [
-        "Focused worker tests and compiled consumer comparisons passed."
+        "338 tests in hosted CI; Linux Node 22, 24 and 26 and Windows Node 24 passed; compiled Express demo verified JSON and JUnit"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45996073565"
+      ],
+      "completedAt": "2026-11-27T17:40:38+05:30"
     },
     {
       "id": "HG-056",
@@ -1095,13 +1110,16 @@
       "owner": "E",
       "dependencies": ["HG-031", "HG-034"],
       "branch": "phase-6/integrations",
-      "pr": null,
-      "status": "review",
+      "pr": 8,
+      "status": "completed",
       "tests": [
-        "Focused worker tests and compiled consumer comparisons passed."
+        "338 tests in hosted CI; Linux Node 22, 24 and 26 and Windows Node 24 passed; compiled Express demo verified JSON and JUnit"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45996073565"
+      ],
+      "completedAt": "2026-11-27T17:40:38+05:30"
     },
     {
       "id": "HG-057",
@@ -1110,13 +1128,16 @@
       "owner": "D",
       "dependencies": ["HG-042", "HG-043"],
       "branch": "phase-6/integrations",
-      "pr": null,
-      "status": "review",
+      "pr": 8,
+      "status": "completed",
       "tests": [
-        "Focused worker tests and compiled consumer comparisons passed."
+        "338 tests in hosted CI; Linux Node 22, 24 and 26 and Windows Node 24 passed; compiled Express demo verified JSON and JUnit"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45996073565"
+      ],
+      "completedAt": "2026-11-27T17:40:38+05:30"
     },
     {
       "id": "HG-058",
@@ -1125,13 +1146,16 @@
       "owner": "E",
       "dependencies": ["HG-010", "HG-044"],
       "branch": "phase-6/integrations",
-      "pr": null,
-      "status": "review",
+      "pr": 8,
+      "status": "completed",
       "tests": [
-        "Focused worker tests and compiled consumer comparisons passed."
+        "338 tests in hosted CI; Linux Node 22, 24 and 26 and Windows Node 24 passed; compiled Express demo verified JSON and JUnit"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45996073565"
+      ],
+      "completedAt": "2026-11-27T17:40:38+05:30"
     },
     {
       "id": "HG-059",
