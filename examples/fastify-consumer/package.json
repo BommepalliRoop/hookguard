@@ -1,0 +1,14 @@
+{
+  "name": "@hookguard/fastify-consumer",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/start.js"
+  },
+  "dependencies": {
+    "fastify": "5.12.8"
+  }
+}
