@@ -37,6 +37,44 @@ async function serve(
 }
 
 describe('local scenario execution', () => {
+  it('retries a real 429 immediately when its HTTP date has expired', async () => {
+    let deliveries = 0;
+    await serve(
+      (_request, response) => {
+        deliveries++;
+        if (deliveries === 1) {
+          response
+            .writeHead(429, {
+              'Retry-After': 'Wednesday, 21-Oct-15 07:28:00 GMT',
+            })
+            .end();
+        } else {
+          response.writeHead(200).end();
+        }
+      },
+      async (origin) => {
+        const configuration = scenario(origin, {
+          scenario: 'retry',
+          execution: {
+            timeoutMs: 1000,
+            retry: { maxAttempts: 2, backoffMs: 0, statuses: [429] },
+          },
+        });
+        const result = await runScenario(configuration, fixture, origin);
+        expect(result.passed).toBe(true);
+        expect(
+          result.attempts.map(({ status, plannedDelayMs }) => [
+            status,
+            plannedDelayMs,
+          ]),
+        ).toEqual([
+          [429, 0],
+          [200, 0],
+        ]);
+      },
+    );
+    expect(deliveries).toBe(2);
+  });
   it('reports the retry schedule and asserts the terminal HTTP response', async () => {
     let deliveries = 0;
     await serve(

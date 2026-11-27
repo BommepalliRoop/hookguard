@@ -1,0 +1,21 @@
+{
+  "name": "@hookguard/hono-consumer",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/start.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.11",
+    "hono": "4.13.23"
+  }
+}

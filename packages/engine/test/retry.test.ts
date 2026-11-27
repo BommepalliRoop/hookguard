@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createPrng } from '../src/index.js';
-import { retryDelayMs } from '../src/retry.js';
+import { retryDelayMs, serverDelayMs } from '../src/retry.js';
 
 const base = { backoffMs: 1250 };
 const now = Date.UTC(2026, 2, 14, 12);
@@ -39,6 +39,13 @@ describe('retryDelayMs', () => {
   });
 
   it('accepts both legacy HTTP-date formats using UTC', () => {
+    const wednesday = Date.UTC(2026, 2, 18, 12);
+    expect(serverDelayMs('Wednesday, 18-Mar-26 12:00:05 GMT', wednesday)).toBe(
+      5000,
+    );
+    expect(
+      serverDelayMs('Wednesday, 31-Feb-26 12:00:05 GMT', wednesday),
+    ).toBeUndefined();
     expect(
       retryDelayMs(base, unusedRandom, 'Saturday, 14-Mar-26 12:00:05 GMT', now),
     ).toBe(5000);

@@ -99,6 +99,19 @@ describe('bounded loopback HTTP', () => {
     ).rejects.toBeInstanceOf(TargetPolicyError);
   });
 
+  it.each([
+    'Wed, 21 Oct 2015 07:28:00 GMT',
+    'Wednesday, 21-Oct-15 07:28:00 GMT',
+    'Wed Oct 21 07:28:00 2015',
+    'Sat, 31 Dec 2016 23:59:60 GMT',
+  ])('preserves a valid Retry-After date on a real 429: %s', async (header) => {
+    const { origin, policy } = await listen((_req, res) => {
+      res.writeHead(429, { 'Retry-After': header }).end();
+    });
+    const result = await sendRequest(policy, origin, get);
+    expect(result).toMatchObject({ status: 429, retryAfter: header });
+  });
+
   it('preserves the bytes of a POST up to the exact cap, status, and safe Retry-After', async () => {
     const bytes = Buffer.alloc(1024 * 1024, 0xff);
     const { origin, policy } = await listen((req, res) => {

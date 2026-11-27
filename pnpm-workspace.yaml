@@ -1,3 +1,5 @@
 packages:
   - packages/*
   - examples/*
+minimumReleaseAgeExclude:
+  - hono@4.13.23

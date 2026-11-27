@@ -17,7 +17,12 @@ import {
   type OutputConfiguration,
 } from 'commander';
 import { InitError, initExpressTemplate } from './init.js';
-import { formatJsonReport, formatJunitReport } from './report.js';
+import {
+  formatJsonReport,
+  formatJunitReport,
+  redactRunResult,
+  renderHtmlReport,
+} from './report.js';
 
 const require = createRequire(import.meta.url);
 const { version } = require('../package.json') as { version: string };
@@ -105,7 +110,7 @@ export async function runCli(
     .requiredOption('--target <url>', 'Webhook endpoint URL')
     .addOption(
       new Option('--format <format>', 'Report format')
-        .choices(['text', 'json', 'junit'])
+        .choices(['text', 'json', 'junit', 'html'])
         .default('text'),
     )
     .action(
@@ -116,7 +121,7 @@ export async function runCli(
       }: {
         config: string;
         target: string;
-        format: 'text' | 'json' | 'junit';
+        format: 'text' | 'json' | 'junit' | 'html';
       }) => {
         const scenario = await loadScenario(config);
         const fixture = await readFixture(config, scenario.fixture.path);
@@ -128,15 +133,24 @@ export async function runCli(
           signingSecret === undefined ? {} : { signingSecret },
         );
         outcome = result.passed ? 0 : 1;
+        const redaction = {
+          redactPaths: scenario.security.redactPaths,
+          secrets: signingSecret ? [signingSecret] : [],
+        };
         if (format === 'json') {
-          writeOut(formatJsonReport(result));
+          writeOut(formatJsonReport(result, redaction));
         } else if (format === 'junit') {
-          writeOut(formatJunitReport(result));
+          writeOut(formatJunitReport(result, redaction));
+        } else if (format === 'html') {
+          writeOut(renderHtmlReport(result, redaction));
         } else {
           writeOut(
             `${result.passed ? 'PASS' : 'FAIL'} · ${result.attempts.length} delivery attempts\n`,
           );
-          for (const { kind, passed, detail } of result.assertions) {
+          for (const { kind, passed, detail } of redactRunResult(
+            result,
+            redaction,
+          ).assertions) {
             writeOut(`${passed ? 'PASS' : 'FAIL'} ${kind} · ${detail}\n`);
           }
         }
