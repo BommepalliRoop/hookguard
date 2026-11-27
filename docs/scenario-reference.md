@@ -1,5 +1,7 @@
 # Scenario reference
 
+Use `run --format html` to write a static, redacted report to standard output. Redirect it to an HTML file to view it locally. The [provider fixture guide](provider-fixtures.md) explains how to adapt a synthetic scenario to a provider's event envelope.
+
 Run `hookguard validate --config examples/scenarios/duplicate.yaml` after building the workspace. Validation reads YAML and fixture files locally. The [duplicate example](../examples/scenarios/duplicate.yaml) uses a [synthetic payment](../examples/scenarios/fixtures/payment-captured.json) and expects one credit after three deliveries.
 
 ## Version 1

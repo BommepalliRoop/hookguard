@@ -839,13 +839,16 @@
       "owner": "A",
       "dependencies": ["HG-014", "HG-020", "HG-030"],
       "branch": "phase-5/alpha-rehearsal",
-      "pr": null,
-      "status": "review",
+      "pr": 6,
+      "status": "completed",
       "tests": [
         "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45956843433"
+      ],
+      "completedAt": "2026-11-27T12:45:52+05:30"
     },
     {
       "id": "HG-042",
@@ -854,13 +857,16 @@
       "owner": "E",
       "dependencies": ["HG-033"],
       "branch": "phase-5/alpha-rehearsal",
-      "pr": null,
-      "status": "review",
+      "pr": 6,
+      "status": "completed",
       "tests": [
         "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45956843433"
+      ],
+      "completedAt": "2026-11-27T12:45:52+05:30"
     },
     {
       "id": "HG-043",
@@ -876,13 +882,16 @@
         "HG-038"
       ],
       "branch": "phase-5/alpha-rehearsal",
-      "pr": null,
-      "status": "review",
+      "pr": 6,
+      "status": "completed",
       "tests": [
         "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45956843433"
+      ],
+      "completedAt": "2026-11-27T12:45:52+05:30"
     },
     {
       "id": "HG-044",
@@ -891,13 +900,16 @@
       "owner": "E",
       "dependencies": ["HG-041", "HG-042", "HG-043"],
       "branch": "phase-5/alpha-rehearsal",
-      "pr": null,
-      "status": "review",
+      "pr": 6,
+      "status": "completed",
       "tests": [
         "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45956843433"
+      ],
+      "completedAt": "2026-11-27T12:45:52+05:30"
     },
     {
       "id": "HG-045",
@@ -906,13 +918,16 @@
       "owner": "E",
       "dependencies": ["HG-030", "HG-031", "HG-032"],
       "branch": "phase-5/alpha-rehearsal",
-      "pr": null,
-      "status": "review",
+      "pr": 6,
+      "status": "completed",
       "tests": [
         "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45956843433"
+      ],
+      "completedAt": "2026-11-27T12:45:52+05:30"
     },
     {
       "id": "HG-046",
@@ -921,13 +936,16 @@
       "owner": "F",
       "dependencies": ["HG-043"],
       "branch": "phase-5/alpha-rehearsal",
-      "pr": null,
-      "status": "review",
+      "pr": 6,
+      "status": "completed",
       "tests": [
         "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45956843433"
+      ],
+      "completedAt": "2026-11-27T12:45:52+05:30"
     },
     {
       "id": "HG-047",
@@ -936,13 +954,16 @@
       "owner": "F",
       "dependencies": ["HG-044", "HG-046"],
       "branch": "phase-5/alpha-rehearsal",
-      "pr": null,
-      "status": "review",
+      "pr": 6,
+      "status": "completed",
       "tests": [
         "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
       ],
-      "evidence": ["docs/TEST_EVIDENCE.md"],
-      "completedAt": null
+      "evidence": [
+        "docs/TEST_EVIDENCE.md",
+        "https://github.com/BommepalliRoop/hookguard/actions/runs/45956843433"
+      ],
+      "completedAt": "2026-11-27T12:45:52+05:30"
     },
     {
       "id": "HG-048",
@@ -966,8 +987,8 @@
       "owner": "F",
       "dependencies": ["HG-001", "HG-003", "HG-046"],
       "branch": "phase-5/alpha-rehearsal",
-      "pr": null,
-      "status": "review",
+      "pr": 6,
+      "status": "blocked",
       "tests": [
         "321 local coverage tests, compiled demo, package reproducibility and clean install passed"
       ],
@@ -998,11 +1019,13 @@
       "phase": 6,
       "owner": "E",
       "dependencies": ["HG-030", "HG-035"],
-      "branch": null,
+      "branch": "phase-6/integrations",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "Focused worker tests and compiled consumer comparisons passed."
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -1011,11 +1034,13 @@
       "phase": 6,
       "owner": "E",
       "dependencies": ["HG-030", "HG-035"],
-      "branch": null,
+      "branch": "phase-6/integrations",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "Focused worker tests and compiled consumer comparisons passed."
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -1024,11 +1049,13 @@
       "phase": 6,
       "owner": "E",
       "dependencies": ["HG-043", "HG-044", "HG-048"],
-      "branch": null,
+      "branch": "phase-6/integrations",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "Focused worker tests and compiled consumer comparisons passed."
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -1037,11 +1064,13 @@
       "phase": 6,
       "owner": "B",
       "dependencies": ["HG-026"],
-      "branch": null,
+      "branch": "phase-6/integrations",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "Focused worker tests and compiled consumer comparisons passed."
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -1050,11 +1079,13 @@
       "phase": 6,
       "owner": "E",
       "dependencies": ["HG-020", "HG-035", "HG-036"],
-      "branch": null,
+      "branch": "phase-6/integrations",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "Focused worker tests and compiled consumer comparisons passed."
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -1063,11 +1094,13 @@
       "phase": 6,
       "owner": "E",
       "dependencies": ["HG-031", "HG-034"],
-      "branch": null,
+      "branch": "phase-6/integrations",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "Focused worker tests and compiled consumer comparisons passed."
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -1076,11 +1109,13 @@
       "phase": 6,
       "owner": "D",
       "dependencies": ["HG-042", "HG-043"],
-      "branch": null,
+      "branch": "phase-6/integrations",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "Focused worker tests and compiled consumer comparisons passed."
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
@@ -1089,11 +1124,13 @@
       "phase": 6,
       "owner": "E",
       "dependencies": ["HG-010", "HG-044"],
-      "branch": null,
+      "branch": "phase-6/integrations",
       "pr": null,
-      "status": "pending",
-      "tests": [],
-      "evidence": [],
+      "status": "review",
+      "tests": [
+        "Focused worker tests and compiled consumer comparisons passed."
+      ],
+      "evidence": ["docs/TEST_EVIDENCE.md"],
       "completedAt": null
     },
     {
