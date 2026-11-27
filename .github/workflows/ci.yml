@@ -9,12 +9,20 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    name: verify (${{ matrix.label }})
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
-        node: [22, 24, 26]
+        include:
+          - { node: 22, os: ubuntu-latest, label: '22' }
+          - { node: 24, os: ubuntu-latest, label: '24' }
+          - { node: 26, os: ubuntu-latest, label: '26' }
+          - { node: 24, os: windows-latest, label: 'Windows 24' }
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -32,11 +40,29 @@ jobs:
       - run: pnpm build
       - name: Smoke test the built CLI
         run: node scripts/phase1/cli-smoke.mjs
+      - name: Verify buggy and fixed webhook consumers with the built CLI
+        run: ${{ runner.os == 'Windows' && 'python' || 'python3' }} scripts/phase5/verify_demo.py
+      - name: Rehearse reproducible CLI packaging and clean installation
+        if: matrix.label == '24'
+        run: |
+          pnpm run package:cli
+          archive="$(realpath dist/release/*.tgz)"
+          temp_dir="$(mktemp -d)"
+          cp "$archive" "$temp_dir/first.tgz"
+          pnpm run package:cli
+          cmp "$temp_dir/first.tgz" "$archive"
+          npm install --prefix "$temp_dir" --ignore-scripts --no-audit --no-fund "$archive"
+          cli="$temp_dir/node_modules/.bin/hookguard"
+          "$cli" --version
+          "$cli" init "$temp_dir/example"
+          "$cli" validate --config "$temp_dir/example/hookguard.yaml"
+          python3 scripts/phase5/verify_demo.py --cli "$temp_dir/node_modules/@hookguard/cli/dist/index.js"
+          pnpm audit
       - name: Run tests and offline orchestrator checks
         run: pnpm test:coverage
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
-          name: coverage-node-${{ matrix.node }}
+          name: coverage-${{ runner.os }}-node-${{ matrix.node }}
           path: coverage/lcov.info
           if-no-files-found: error
           retention-days: 7

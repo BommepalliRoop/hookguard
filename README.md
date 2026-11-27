@@ -28,24 +28,12 @@ See [current implementation status](docs/STATUS.md). Read [the project BRD](docs
 
 ## Getting started
 
-From a checkout, use Node.js 26 LTS (Node.js 22.13+ and 24 LTS are also in the workspace support range) and pnpm 11.25.0:
+Follow the [quickstart](docs/quickstart.md) to build from a clean checkout on
+macOS, Linux, or Windows, generate a synthetic scenario, and see the same test
+fail against the buggy Express consumer and pass against the fixed one.
 
-```sh
-pnpm install --frozen-lockfile
-pnpm build
-node packages/cli/dist/index.js --help
-node packages/cli/dist/index.js validate --config examples/scenarios/duplicate.yaml
-```
-
-See the [scenario reference](docs/scenario-reference.md) for supported fields and [Contributing](CONTRIBUTING.md) for development checks.
-
-Run the [Express demo](examples/express-consumer/README.md) on port 3000, then run the duplicate scenario from the checkout:
-
-```sh
-node packages/cli/dist/index.js run --config examples/scenarios/duplicate.yaml --target http://127.0.0.1:3000
-```
-
-The buggy receiver applies three credits and the CLI exits 1. The fixed receiver applies one credit and the CLI exits 0.
+See the [scenario reference](docs/scenario-reference.md) for supported fields
+and [Contributing](CONTRIBUTING.md) for development checks.
 
 ## Open-source participation
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="3" failures="0">
+  <testsuite name="payment-captured-duplicate" tests="3" failures="0">
+    <testcase classname="hookguard" name="1. http_status"/>
+    <testcase classname="hookguard" name="2. delivery_count"/>
+    <testcase classname="hookguard" name="3. state_json"/>
+  </testsuite>
+</testsuites>

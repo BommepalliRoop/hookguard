@@ -96,7 +96,13 @@ export async function checkWorkspace(root = workspaceRoot) {
 const entryPath = process.argv[1]
   ? await realpath(process.argv[1]).catch(() => undefined)
   : undefined;
-if (entryPath === fileURLToPath(import.meta.url)) {
+const modulePath = await realpath(fileURLToPath(import.meta.url));
+const isEntrypoint =
+  entryPath !== undefined &&
+  (process.platform === 'win32'
+    ? entryPath.toLowerCase() === modulePath.toLowerCase()
+    : entryPath === modulePath);
+if (isEntrypoint) {
   const errors = await checkWorkspace();
   if (errors.length > 0) {
     process.stderr.write(`${errors.join('\n')}\n`);

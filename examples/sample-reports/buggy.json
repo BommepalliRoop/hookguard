@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "name": "payment-captured-duplicate",
+  "seed": 42,
+  "scenarioHash": "b09427e133245868058f58065ee372ae589c7d08ccb08eea85ff75a30ddcb2d7",
+  "engineVersion": "0.0.0",
+  "startedAt": "2026-11-26T17:22:14.844Z",
+  "attempts": [
+    {
+      "sequence": 1,
+      "status": 200,
+      "durationMs": 12,
+      "plannedDelayMs": 0
+    },
+    {
+      "sequence": 2,
+      "status": 200,
+      "durationMs": 1,
+      "plannedDelayMs": 0
+    },
+    {
+      "sequence": 3,
+      "status": 200,
+      "durationMs": 1,
+      "plannedDelayMs": 0
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "http_status",
+      "passed": true,
+      "detail": "Expected final HTTP status 200, observed 200, 200, 200."
+    },
+    {
+      "kind": "delivery_count",
+      "passed": true,
+      "detail": "Expected 3 attempts, observed 3."
+    },
+    {
+      "kind": "state_json",
+      "passed": false,
+      "detail": "Expected 1, observed 3."
+    }
+  ],
+  "passed": false
+}

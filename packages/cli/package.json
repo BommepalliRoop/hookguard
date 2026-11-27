@@ -17,5 +17,16 @@
   },
   "devDependencies": {
     "@hookguard/express-consumer": "workspace:*"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BommepalliRoop/hookguard.git",
+    "directory": "packages/cli"
+  },
+  "description": "Local-first reliability testing for webhook consumers",
+  "homepage": "https://github.com/BommepalliRoop/hookguard#readme",
+  "bugs": {
+    "url": "https://github.com/BommepalliRoop/hookguard/issues"
   }
 }

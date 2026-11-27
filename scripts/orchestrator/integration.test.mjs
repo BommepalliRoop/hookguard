@@ -1,7 +1,23 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { existsSync, readFileSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { execPath } from 'node:process';
+import { fileURLToPath, URL } from 'node:url';
 import { expect, test } from 'vitest';
 import { createFixture, makeTask } from './test-fixture.mjs';
+
+test('invokes the orchestrator from a symlinked directory', ({
+  onTestFinished,
+}) => {
+  const { root } = createFixture(onTestFinished);
+  const link = join(root, 'linked-scripts');
+  symlinkSync(fileURLToPath(new URL('./', import.meta.url)), link, 'junction');
+  const output = execFileSync(execPath, [join(link, 'main.mjs'), '--help'], {
+    encoding: 'utf8',
+    timeout: 10_000,
+  });
+  expect(output).toContain('Usage: pnpm run orchestrate');
+});
 
 test('runs checks in isolated worker worktrees, retries a transient exit, and resumes', ({
   onTestFinished,
@@ -15,7 +31,7 @@ test('runs checks in isolated worker worktrees, retries a transient exit, and re
   fixture.writeWorker(`
     import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
     import { cwd, exit, pid } from 'node:process';
-    import { fileURLToPath } from 'node:url';
+    import { fileURLToPath, URL } from 'node:url';
 
     const { task, workerId, attempt, model } = JSON.parse(readFileSync(0, 'utf8'));
     const ledger = new URL('./worker-events.jsonl', import.meta.url);
